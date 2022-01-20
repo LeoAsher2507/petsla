@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import "./index.scss";
 
-import { store } from "./store/rootReducer";
+import { store } from "./stores/rootReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(

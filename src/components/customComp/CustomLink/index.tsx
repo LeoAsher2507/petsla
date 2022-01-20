@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, LinkProps, useMatch, useResolvedPath } from "react-router-dom";
-import { RootState, useAppSelector } from "src/store/rootReducer";
+import { RootState, useAppSelector } from "src/stores/rootReducer";
 
 const CustomLink = ({ children, to, ...props }: LinkProps) => {
   let resolved = useResolvedPath(to);

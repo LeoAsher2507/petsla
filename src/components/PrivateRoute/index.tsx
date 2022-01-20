@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from 'src/store/rootReducer';
+import { RootState } from 'src/stores/rootReducer';
+import { ERouterPath } from 'src/types/route';
 
 const PrivateRoute = () => {
   const token = useSelector((state: RootState) => state.auth.token);
-  console.log("check ", token);
-  return token ? <Outlet /> : <Navigate to='/login' />;
+  return token ? <Outlet /> : <Navigate to={ERouterPath.LOGIN} />;
 };
 
 export default PrivateRoute;

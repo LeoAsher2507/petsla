@@ -1,5 +1,5 @@
 import React from "react";
-import HomeBanner from "src/partials/HomeBanner";
+import HomeBanner from "src/layouts/HomeBanner";
 import "./HomePage.scss";
 
 const HomePage = () => {

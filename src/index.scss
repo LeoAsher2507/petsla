@@ -1,9 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap");
-@import "~bootstrap/scss/bootstrap";
-@import "./variable";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap');
+@import '~bootstrap/scss/bootstrap';
+@import './variable';
 
 html {
-  font-size: 62.5%;
   overflow-y: overlay;
 
   ::-webkit-scrollbar {
@@ -34,7 +33,7 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   transition: background-color 0.3s;
   color: inherit;
 

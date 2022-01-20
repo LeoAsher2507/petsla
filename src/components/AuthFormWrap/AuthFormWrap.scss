@@ -1,0 +1,18 @@
+.auth-form-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 10vh);
+  max-width: 28rem;
+  padding: 2.6rem 1rem 2rem; 
+
+  .auth-form-title {
+    font-size: 3.2rem;
+    text-align: center;
+  }
+
+  .action-wrap {
+    button {
+      float: right;
+    }
+  }
+}

@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import { ERouterPath } from "src/types/route";
 import "./HomeBanner.scss";
-import Slider from "react-slick";
-import { ERouterPath } from "src/navigation/route";
 
 const HomeBanner = () => {
   const slider = useRef(null);

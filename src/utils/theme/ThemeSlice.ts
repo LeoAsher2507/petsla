@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 interface ITheme {
   isLightTheme: boolean;
@@ -15,22 +15,22 @@ interface ITheme {
 
 const _theme = {
   lightTheme: {
-    backgroundColor: "#fefefe",
-    color: "black",
-    colorBlur: "#444",
-    boxShadowColor: "rgba(0, 0, 0, 0.1)",
-    boxShadowColor1: "rgba(0, 0, 0, 0.3)",
-    borderColor: "rgba(0, 0, 0, 0.2)",
-    primaryColor: "rgb(230, 150, 70)",
+    backgroundColor: '#fefefe',
+    color: 'black',
+    colorBlur: '#444',
+    boxShadowColor: 'rgba(0, 0, 0, 0.1)',
+    boxShadowColor1: 'rgba(0, 0, 0, 0.3)',
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    primaryColor: 'rgb(230, 150, 70)',
   },
   darkTheme: {
-    backgroundColor: "#222",
-    color: "#eee",
-    colorBlur: "#bbb",
-    boxShadowColor: "rgba(0, 0, 0, 0.3)",
-    boxShadowColor1: "rgba(0, 0, 0, 0.6)",
-    borderColor: "rgba(255, 255, 255, 0.1)",
-    primaryColor: "rgb(230, 150, 70)",
+    backgroundColor: '#222',
+    color: '#eee',
+    colorBlur: '#bbb',
+    boxShadowColor: 'rgba(0, 0, 0, 0.3)',
+    boxShadowColor1: 'rgba(0, 0, 0, 0.6)',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    primaryColor: 'rgb(230, 150, 70)',
   },
 };
 
@@ -40,7 +40,7 @@ const initialState: ITheme = {
 };
 
 const themeSlice = createSlice({
-  name: "theme",
+  name: 'theme',
   initialState,
   reducers: {
     toggleTheme: (state) => {

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginMethod } from 'src/features/auth/services/authThunk';
+import { loginMethod } from 'src/services/auth/authAction';
 
 interface IInitialState {
   token: string;
@@ -15,7 +15,7 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(loginMethod.fulfilled, (state, action) => {
-      state.token = action.payload.token;
+      // state.token = action.payload.token;
     });
   },
 });
