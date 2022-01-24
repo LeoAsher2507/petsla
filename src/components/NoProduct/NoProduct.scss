@@ -1,0 +1,19 @@
+@import 'src/variable';
+
+.no-products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .no-products-img {
+    width: 20vw;
+    user-select: none;
+    max-width: 40%;
+  }
+
+  .no-products-title {
+    font-size: toRem(16);
+    font-weight: 600;
+    color: $blue-text-color;
+  }
+}

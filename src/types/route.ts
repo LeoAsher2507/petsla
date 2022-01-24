@@ -5,4 +5,5 @@ export enum ERouterPath {
   CART = '/cart',
   ACCOUNT = '/account',
   HOME = '/',
+  DETAIL_PRODUCT = `/detail-product`,
 }

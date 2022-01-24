@@ -6,7 +6,7 @@ html {
   overflow-y: overlay;
 
   ::-webkit-scrollbar {
-    width: 1.6rem;
+    width: toRem(16);
     background: transparent;
 
     &:hover {
@@ -20,11 +20,11 @@ html {
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 5rem;
+    border-radius: toRem(50);
     background: linear-gradient(to right, #999, #333);
     background-color: rgba(0, 0, 0, 0.6);
 
-    border: 0.3rem solid transparent;
+    border: toRem(3) solid transparent;
     background-clip: content-box;
   }
 }
@@ -53,9 +53,9 @@ html {
 }
 
 .home-section__title {
-  font-size: 2.6rem;
+  font-size: toRem(26);
   font-weight: 700;
-  padding: 6rem 0 1.5rem;
+  padding: toRem(60) 0 toRem(15);
 
   text-transform: uppercase;
   text-align: center;
@@ -63,8 +63,8 @@ html {
 
   @media (max-width: 768px) {
     & {
-      font-size: 2.2rem;
-      padding: 2rem 0 0;
+      font-size: toRem(22);
+      padding: toRem(20) 0 0;
     }
   }
 }
@@ -83,7 +83,7 @@ button {
     align-items: center;
 
     * {
-      font-size: 1.6rem;
+      font-size: toRem(16);
     }
   }
 }

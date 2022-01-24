@@ -23,3 +23,8 @@ $top-nav-rps-zindex: 10;
 
 $checkout-infor-zindex: 20;
 $loading-zindex: 30;
+
+
+@function toRem($pxSize) {
+  @return ($pxSize/16)+rem;
+}

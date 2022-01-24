@@ -1,18 +1,24 @@
+@import 'src/variable';
+
 .auth-form-wrap {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 10vh);
-  max-width: 28rem;
-  padding: 2.6rem 1rem 2rem; 
+  padding: toRem(20) toRem(10);
 
   .auth-form-title {
-    font-size: 3.2rem;
+    font-size: toRem(36);
+    font-weight: 700;
+    text-transform: uppercase;
     text-align: center;
+
+    padding: toRem(10) 0 0;
   }
 
   .action-wrap {
     button {
       float: right;
+
+      &.isDisable {
+        cursor: no-drop;
+      }
     }
   }
 }

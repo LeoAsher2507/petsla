@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import ProductList from 'src/components/ProductList';
+import { getAllProductMethod } from 'src/services/product/productAction';
+import { RootState } from 'src/stores/rootReducer';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from 'src/utils/hook.ts/customReduxHook';
 
 const ProductsPage = () => {
-  
-  
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const dispatch = useAppDispatch();
+  const productList = useAppSelector(
+    (state: RootState) => state.product.productList
+  );
 
-export default ProductsPage
+  useEffect(() => {
+    dispatch(getAllProductMethod());
+  }, [dispatch]);
+
+  return (
+    <div className='product-page'>
+      <Container>
+        <ProductList productList={productList} />
+      </Container>
+    </div>
+  );
+};
+
+export default ProductsPage;

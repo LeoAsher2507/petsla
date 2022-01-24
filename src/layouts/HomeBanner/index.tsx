@@ -1,67 +1,25 @@
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
-import { ERouterPath } from "src/types/route";
-import "./HomeBanner.scss";
+import React from 'react';
+import { Carousel } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { ERouterPath } from 'src/types/route';
+import Media from 'src/utils/Media';
+import './HomeBanner.scss';
 
 const HomeBanner = () => {
-  const slider = useRef(null);
-
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    centerPadding: "0px",
-    autoplaySpeed: 3000,
-    autoplay: true,
-    appendDots: (dots: any) => <ul>{dots}</ul>,
-    customPaging: () => (
-      <div className="slick__dots--custom">
-        <div className="dots-center" />
-      </div>
-    ),
-  };
-
   return (
-    <div>
-      <div className="home-banner">
-        {/* <Slider ref={slider} {...settings}>
-          <div className="banner-item">
-            <Link to={ERouterPath.PRODUCT_LIST}>
-              <img src="./img/banner/banner1.png" alt="" />
-            </Link>
-          </div>
-
-          <div className="banner-item">
-            <Link to={ERouterPath.PRODUCT_LIST}>
-              <img src="./img/banner/banner2.png" alt="" />
-            </Link>
-          </div>
-        </Slider> */}
-
-        <div className="banner-item">
+    <div className='home-banner'>
+      <Carousel>
+        <Carousel.Item>
           <Link to={ERouterPath.PRODUCT_LIST}>
-            <img src="./img/banner/banner2.png" alt="" />
+            <img srcSet={Media.bannerImg.banner1} alt='' />
           </Link>
-        </div>
-
-        {/* <div className="btn-wrap">
-          <button
-            className="arrow arrow-prev"
-            // onClick={() => slider?.current?.slickPrev()}
-          >
-            <i className="bi bi-chevron-left"></i>
-          </button>
-          <button
-            className="arrow arrow-next"
-            // onClick={() => slider?.current?.slickNext()}
-          >
-            <i className="bi bi-chevron-right"></i>
-          </button>
-        </div> */}
-      </div>
+        </Carousel.Item>
+        <Carousel.Item>
+          <Link to={ERouterPath.PRODUCT_LIST}>
+            <img srcSet={Media.bannerImg.banner2} alt='' />
+          </Link>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-@import "src/variable.scss";
+@import 'src/variable.scss';
 .top-nav {
   position: sticky;
   top: 0;
@@ -14,14 +14,14 @@
     position: relative;
     display: flex;
     width: 100%;
-    padding: 1rem 0;
+    padding: toRem(10) toRem(12);
     text-align: center;
 
     align-items: center;
     justify-content: space-between;
 
     .top-nav__branch {
-      width: 16rem;
+      width: toRem(160);
       position: relative;
 
       display: flex;
@@ -36,29 +36,29 @@
     & > .top-nav__list {
       display: flex;
       margin: 0;
-      margin-right: 4rem;
+      margin-right: toRem(40);
       align-items: center;
 
       .top-nav-item {
-        margin: 1rem;
+        margin: toRem(10);
         position: relative;
         cursor: pointer;
 
         a {
-          font-size: 1.6rem;
+          font-size: toRem(16);
           text-decoration: none;
           font-weight: 700;
           text-transform: uppercase;
 
           & > i {
-            margin-left: 0.5rem;
+            margin-left: toRem(5);
             position: relative;
             transition: 0.3s;
           }
         }
 
         &::before {
-          content: "";
+          content: '';
           display: block;
           position: absolute;
           display: none;
@@ -70,13 +70,13 @@
         }
 
         &::after {
-          content: "";
+          content: '';
           display: block;
           border-radius: 2px;
           width: 0;
 
           margin: -2px -5% auto;
-          height: 0.3rem;
+          height: toRem(3);
           transition: all 0.3s;
           position: absolute;
 
@@ -89,7 +89,7 @@
         .top-nav-product-list {
           position: absolute;
           top: 180%;
-          width: 25rem;
+          width: toRem(250);
           left: 50%;
           z-index: $top-nav-zindex;
 
@@ -113,13 +113,13 @@
             a {
               display: inline-block;
               width: 100%;
-              padding: 1rem 2rem 1rem 2rem;
+              padding: toRem(10) toRem(20) toRem(10) toRem(20);
               font-weight: 400;
             }
 
             i {
               position: absolute;
-              right: 1.5rem;
+              right: toRem(1.5);
               transform: rotate(90deg);
 
               transition: 0.3s;
@@ -144,10 +144,6 @@
               background-color: $primary-color;
               i {
                 transform: rotate(0deg);
-              }
-
-              * {
-                // color: #fff;
               }
 
               .product-sub-list {
@@ -180,91 +176,44 @@
     }
     // end of top nav list
 
-    .top-nav__user-wrap {
+    .top-nav-btn-wrap {
       display: flex;
 
-      & > div {
+      .top-nav-item {
         cursor: pointer;
-        margin: auto 1rem;
+        position: relative;
+        margin: auto toRem(10);
         label {
           cursor: pointer;
         }
         i {
-          font-size: 2rem;
+          font-size: toRem(20);
+        }
+
+        .top-nav-item__title {
+          position: absolute;
+          left: 50%;
+          font-size: toRem(14);
+          padding: toRem(3) toRem(8);
+          border-radius: 3px;
+          white-space: nowrap;
+          transform: translate(-50%, 10px);
+          opacity: 0;
+          transition: 0.3s;
+        }
+
+        i:hover ~ .top-nav-item__title {
+          transform: translate(-50%, 0);
+          opacity: 1;
         }
       }
 
-      .top-nav__user {
-        position: relative;
-        background-color: unset;
-
-        .user-wrap {
-          position: absolute;
-          top: 150%;
-          border-radius: 3px;
-          right: 0;
-
-          transition: transform 0.3s, opacity 0.3s;
-          transform-origin: top;
-          transform: scaleY(0) translateX(50%);
-          opacity: 0;
-
-          z-index: $top-nav-zindex + 2;
-
-          .user-btn-list {
-            border-radius: 3px;
-            width: 15rem;
-
-            .user-item {
-              font-size: 1.4rem;
-              font-weight: 600;
-              text-transform: uppercase;
-              border: none;
-              background-color: unset;
-
-              word-break: keep-all;
-              width: 100%;
-              padding: 0.8rem 1.2rem;
-              text-align: center;
-
-              &:hover {
-                color: $primary-color;
-              }
-            }
-          }
+      .auth-btn__wrap {
+        .top-nav-item__title {
+          margin-top: -3px;
         }
-
-        .top-nav__user-label {
-          .bi-person-check,
-          .bi-person {
-            display: inline-block;
-            transform: scale(1.3);
-          }
-
-          .bi-x-lg {
-            display: none;
-          }
-        }
-
-        input[type="checkbox"]:checked ~ .user-wrap {
-          transform: scaleY(1) translateX(50%);
-          opacity: 1;
-        }
-
-        input[type="checkbox"]:checked ~ .top-nav__user-label {
-          .bi-x-lg {
-            display: block;
-          }
-
-          .bi-person-check,
-          .bi-person {
-            display: none;
-          }
-        }
-
-        & > input[type="checkbox"]:checked ~ .nav-overlay {
-          display: block;
-          opacity: 1;
+        i {
+          font-size: toRem(24);
         }
       }
 
@@ -292,30 +241,25 @@
           .top-nav-cart-icon {
             position: relative;
 
-            i {
-              display: block;
-              transform: scale(1.15);
-            }
-
             span {
               position: absolute;
               right: 0;
               top: 0;
               transform: translate(70%, -40%);
 
-              width: 2.5rem;
-              height: 2.5rem;
-              line-height: 2.15rem;
+              width: toRem(25);
+              height: toRem(25);
+              line-height: toRem(21.5);
               border-radius: 50%;
 
-              font-size: 1.2rem;
+              font-size: toRem(12);
               font-weight: 700;
               color: white;
               background-color: $primary-color;
             }
           }
         }
-        & > input[type="checkbox"]:checked ~ .top-nav__cart-icon {
+        & > input[type='checkbox']:checked ~ .top-nav__cart-icon {
           .bi-x-lg {
             display: block;
           }
@@ -324,97 +268,20 @@
           }
         }
 
-        & > input[type="checkbox"]:checked ~ .nav-overlay {
+        & > input[type='checkbox']:checked ~ .nav-overlay {
           display: block;
           opacity: 1;
         }
 
-        & > input[type="checkbox"]:checked ~ .top-nav-cart-wrap {
+        & > input[type='checkbox']:checked ~ .top-nav-cart-wrap {
           transform: scale(1);
           opacity: 1;
         }
       }
       // ennd of top nav cart
     }
-
-    @media (max-width: 576px) {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
   }
   // end of contianer
-
-  .confirm-logout {
-    // position: absolute;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-
-    background-color: #fff;
-    box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.6);
-    border-radius: 0.5rem;
-    width: 35rem;
-
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.3s;
-
-    &.active {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    * {
-      font-size: 1.8rem;
-    }
-
-    span {
-      display: block;
-      padding: 2rem 3rem 2rem;
-      text-align: center;
-    }
-
-    .confirm-logout-wrap {
-      display: flex;
-      justify-content: space-between;
-
-      div {
-        padding: 1rem;
-        text-align: center;
-        flex-grow: 1;
-
-        border-top: 1px solid #ddd;
-        font-weight: 600;
-        opacity: 0.8;
-        cursor: pointer;
-      }
-
-      div:last-child {
-        border-left: 1px solid #ddd;
-        color: $blue-text-color;
-      }
-    }
-  }
-
-  .nav-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    opacity: 0;
-    transition: opacity 0.5s;
-    display: none;
-    background-color: rgba(0, 0, 0, 0.4);
-
-    z-index: $top-nav-zindex + 1;
-
-    &.active {
-      display: block;
-      opacity: 1;
-    }
-  }
 }
 
 .top-nav-item:hover {

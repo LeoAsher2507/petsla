@@ -22,3 +22,7 @@ export interface ILoginResponseData {
   isAdmin: boolean;
   token: string;
 }
+
+export interface ILoginResponseError {
+  detail: string;
+}

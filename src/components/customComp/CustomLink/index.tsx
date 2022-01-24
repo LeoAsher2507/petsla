@@ -1,6 +1,7 @@
-import React from "react";
-import { Link, LinkProps, useMatch, useResolvedPath } from "react-router-dom";
-import { RootState, useAppSelector } from "src/stores/rootReducer";
+import React from 'react';
+import { Link, LinkProps, useMatch, useResolvedPath } from 'react-router-dom';
+import { RootState } from 'src/stores/rootReducer';
+import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 
 const CustomLink = ({ children, to, ...props }: LinkProps) => {
   let resolved = useResolvedPath(to);
@@ -9,10 +10,9 @@ const CustomLink = ({ children, to, ...props }: LinkProps) => {
 
   return (
     <Link
-      style={{ color: match ? "rgb(230, 150, 70)" : style.color }}
+      style={{ color: match ? 'rgb(230, 150, 70)' : style.color }}
       to={to}
-      {...props}
-    >
+      {...props}>
       {children}
     </Link>
   );

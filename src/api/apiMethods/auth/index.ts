@@ -1,10 +1,9 @@
 import axiosInstance from 'src/api/axisInstance';
-import { ILoginRequestData, IRegisterRequestData } from 'src/types/userType';
+import { ILoginRequestData, IRegisterRequestData } from 'src/types/authTypes';
 
 const authApiMethod = {
   login: (data: ILoginRequestData) => {
-    const url = '/login';
-    console.log("aaaaaa", process.env.PUBLIC_URL);
+    const url = '/login/';
     return axiosInstance.post(url, data);
   },
 
@@ -14,4 +13,4 @@ const authApiMethod = {
   },
 };
 
-export default authApiMethod
+export default authApiMethod;
