@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Spinner } from 'react-bootstrap';
+import { RootState } from 'src/stores/rootReducer';
+import { ERequestStatus } from 'src/types/commonType';
+import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 
 interface IModalFooterProps {
   handleClose: () => void;
@@ -14,6 +17,10 @@ const ModalFooter = ({
   saveBtnTitle,
   handleSave,
 }: IModalFooterProps) => {
+  const { requestStatus } = useAppSelector(
+    (state: RootState) => state.authState
+  );
+
   return (
     <Modal.Footer className='d-flex justify-content-between'>
       <Button variant='secondary' onClick={handleClose}>
@@ -22,7 +29,13 @@ const ModalFooter = ({
       <Button
         type={type || 'submit'}
         onClick={handleSave ? handleSave : () => {}}>
-        {saveBtnTitle || 'Save'}
+        {requestStatus === ERequestStatus.PENDING ? (
+          <>
+            <Spinner animation='border' size='sm' /> Loading...
+          </>
+        ) : (
+          saveBtnTitle || 'Save'
+        )}
       </Button>
     </Modal.Footer>
   );

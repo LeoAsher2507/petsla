@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LoginModal from 'src/components/modals/LoginModal';
 import { RootState } from 'src/stores/rootReducer';
-import { IProduct } from 'src/types/productTypes';
+import { ICartProduct, IProduct } from 'src/types/productTypes';
 import { ERouterPath } from 'src/types/route';
-import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
+import { addToCart } from 'src/services/product/productSlice';
 import './ProductItem.scss';
 
 const ProductItem = (props: any) => {
@@ -16,11 +20,25 @@ const ProductItem = (props: any) => {
     process.env.REACT_APP_BASE_URL + product.images || Media.errorLoading
   }')`;
 
-  const token = useAppSelector((state: RootState) => state.auth.token);
+  const { authState, themeState } = useAppSelector((state: RootState) => state);
+  const { token } = authState;
+  const { style } = themeState;
+
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const dispatch = useAppDispatch();
 
   function handleAddToCartClick(product: IProduct) {
-    toast.success('Sản phẩm đã được thêm vào giỏ hàng!');
+    const newCartProduct: ICartProduct = {
+      id: product.id,
+      product_name: product.product_name,
+      images: product.images,
+      created_date: product.created_date,
+      modified_date: product.modified_date,
+      price: product.price,
+      quantity: 1,
+    };
+    dispatch(addToCart(newCartProduct));
+    toast.success('Thêm vào giỏ hàng thành công!');
   }
 
   const handleBuyNowOnClick = () => {
@@ -39,7 +57,9 @@ const ProductItem = (props: any) => {
 
   return (
     <>
-      <div className='product-item  mt-3 '>
+      <div
+        className='product-item  mt-3 '
+        style={{ backgroundColor: style.backgroundColor }}>
         <Link
           to={ERouterPath.DETAIL_PRODUCT + '-' + product.id}
           state={{ product: product }}>

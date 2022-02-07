@@ -3,7 +3,7 @@
 @import './variable';
 
 html {
-  overflow-y: overlay;
+  // overflow-y: overlay;
 
   ::-webkit-scrollbar {
     width: toRem(16);
@@ -24,7 +24,7 @@ html {
     background: linear-gradient(to right, #999, #333);
     background-color: rgba(0, 0, 0, 0.6);
 
-    border: toRem(3) solid transparent;
+    border: toRem(2) solid transparent;
     background-clip: content-box;
   }
 }

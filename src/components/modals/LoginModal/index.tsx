@@ -29,7 +29,7 @@ const LoginModal = ({ show, handleClose }: IProps) => {
   });
 
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state: RootState) => state.auth.token);
+  const token = useAppSelector((state: RootState) => state.authState.token);
 
   const handleLogin = (data: ILoginRequestData) => {
     dispatch(loginMethod(data));

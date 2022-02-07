@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
-import CustomLink from 'src/components/customComp/CustomLink';
+import StyledLink from 'src/components/customComponents/StyledLink';
 import ConfirmModal from 'src/components/modals/ConfirmModal';
 import LoginModal from 'src/components/modals/LoginModal';
+import TopCart from 'src/layouts/TopCart';
 import { logoutMethod } from 'src/services/auth/authSlice';
+import { toggleTheme } from 'src/services/theme/ThemeSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import {
@@ -11,18 +13,24 @@ import {
   useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
-import { toggleTheme } from 'src/utils/theme/ThemeSlice';
 import './TopNav.scss';
 
 const TopNav = () => {
-  // theme context
+  const { themeState, authState, productState } = useAppSelector(
+    (state: RootState) => state
+  );
 
-  const { theme, auth } = useAppSelector((state: RootState) => state);
-  const { style, isLightTheme } = theme;
-  const { token } = auth;
+  const { style, isLightTheme } = themeState;
+  const { token } = authState;
+  const { totalInCart } = productState;
 
   const [showConfirmLogout, setShowConfirmLogout] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+
+  const handleCloseTopCart = () => {
+    setShowCart(false);
+  };
 
   const handleCloseAuthModal = () => {
     setShowAuthModal(false);
@@ -55,48 +63,48 @@ const TopNav = () => {
     <div className='top-nav' style={{ backgroundColor: style.backgroundColor }}>
       <Container>
         <div className='top-nav__branch'>
-          <CustomLink to={ERouterPath.HOME}>
+          <StyledLink to={ERouterPath.HOME}>
             <img src={Media.fullLogo} alt='' />
-          </CustomLink>
+          </StyledLink>
         </div>
 
         <ul className='top-nav__list d-none d-lg-flex'>
           <li className='top-nav-item'>
-            <CustomLink to={ERouterPath.HOME}>Home</CustomLink>
+            <StyledLink to={ERouterPath.HOME}>Home</StyledLink>
           </li>
 
           <li className='top-nav-item'>
-            <CustomLink to={ERouterPath.PRODUCT_LIST}>
+            <StyledLink to={ERouterPath.PRODUCT_LIST}>
               <span>Sản phẩm</span>
               <i className='bi bi-chevron-down'></i>
-            </CustomLink>
+            </StyledLink>
 
             <ul
               className='top-nav-product-list'
               style={{ backgroundColor: style.backgroundColor }}>
               {/* {category.map((cateItem) => (
                 <li key={cateItem.id} className="top-nav-product-item">
-                  <CustomLink to={`/products-list-${cateItem.id}`}>
+                  <StyledLink to={`/products-list-${cateItem.id}`}>
                     {cateItem.category_name}
-                  </CustomLink>
+                  </StyledLink>
                 </li>
               ))} */}
               <li className='top-nav-product-item'>
-                <CustomLink
+                <StyledLink
                   style={{ background: style.primaryColor, color: '#fff' }}
                   to={ERouterPath.PRODUCT_LIST}>
                   Tất cả
-                </CustomLink>
+                </StyledLink>
               </li>
             </ul>
           </li>
 
           <li className='top-nav-item'>
-            <CustomLink to={ERouterPath.ACCOUNT}>Tài khoản</CustomLink>
+            <StyledLink to={ERouterPath.ACCOUNT}>Tài khoản</StyledLink>
           </li>
 
           <li className='top-nav-item'>
-            <CustomLink to={ERouterPath.CART}>Cart</CustomLink>
+            <StyledLink to={ERouterPath.CART}>Cart</StyledLink>
           </li>
         </ul>
 
@@ -151,35 +159,26 @@ const TopNav = () => {
             )}
           </div>
 
-          <div className='top-nav__cart top-nav-item'>
-            <input
-              type='checkbox'
-              name='top-nav-cart-checkbox'
-              id='top-nav-cart-checkbox'
-              hidden
-            />
-            <label
-              htmlFor='top-nav-cart-checkbox'
-              className='top-nav__cart-icon'>
-              <div className='top-nav-cart-icon'>
-                <i className='bi bi-cart3'></i>
-                <div
-                  className='top-nav-item__title'
-                  style={{
-                    backgroundColor: style.colorBlur,
-                    color: style.backgroundColor,
-                  }}>
-                  Cart
-                </div>
-                <span style={{ border: `2px solid ${style.backgroundColor}` }}>
-                  {/* {totalInCart().totalProduct} */}99
-                </span>
-              </div>
-              <i className='bi bi-x-lg'></i>
-            </label>
+          <div
+            className='top-nav__cart top-nav-item'
+            onClick={() => setShowCart(true)}>
+            <i className='bi bi-cart3'></i>
+            <div
+              className='top-nav-item__title'
+              style={{
+                backgroundColor: style.colorBlur,
+                color: style.backgroundColor,
+              }}>
+              Cart
+            </div>
+            <span style={{ border: `2px solid ${style.backgroundColor}` }}>
+              {totalInCart.quantity}
+            </span>
           </div>
         </div>
       </Container>
+
+      <TopCart showCart={showCart} handleCloseTopCart={handleCloseTopCart} />
 
       <ConfirmModal
         modalTitle='Confirm Logout'

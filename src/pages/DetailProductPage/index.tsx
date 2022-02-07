@@ -3,13 +3,20 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Loading from 'src/components/Loading';
 import LoginModal from 'src/components/modals/LoginModal';
+import PageWrap from 'src/components/PageWrap';
 import { getOneProductMethod } from 'src/services/product/productAction';
+import {
+  addToCart,
+  resetCurrentProduct
+} from 'src/services/product/productSlice';
 import { RootState } from 'src/stores/rootReducer';
-import { IProduct } from 'src/types/productTypes';
+import { ERequestStatus } from 'src/types/commonType';
+import { ICartProduct } from 'src/types/productTypes';
 import {
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import './DetailProductPage.scss';
@@ -17,17 +24,27 @@ import './DetailProductPage.scss';
 const DetailProductPage = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const product: IProduct = useAppSelector(
-    (state: RootState) => state.product.currentProduct
+  const { currentProduct, requestState } = useAppSelector(
+    (state: RootState) => state.productState
   );
 
-  const { style } = useSelector((state: RootState) => state.theme);
-  const { token } = useSelector((state: RootState) => state.auth);
+  const { style } = useSelector((state: RootState) => state.themeState);
+  const { token } = useSelector((state: RootState) => state.authState);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   // handle add to cart click
-  function handleAddToCartClick(product: IProduct) {
-    toast.success('Sản phẩm đã được thêm vào giỏ hàng!');
+  function handleAddToCartClick() {
+    const newCartProduct: ICartProduct = {
+      id: currentProduct.id,
+      product_name: currentProduct.product_name,
+      images: currentProduct.images,
+      created_date: currentProduct.created_date,
+      modified_date: currentProduct.modified_date,
+      price: currentProduct.price,
+      quantity: 1,
+    };
+    dispatch(addToCart(newCartProduct));
+    toast.success('Thêm vào giỏ hàng thành công!');
   }
 
   const handleBuyNowOnClick = () => {
@@ -41,19 +58,24 @@ const DetailProductPage = () => {
 
   useEffect(() => {
     if (id) dispatch(getOneProductMethod(id));
+
+    return () => {
+      dispatch(resetCurrentProduct());
+    };
   }, [dispatch, id]);
 
   return (
-    <div
-      className='product-item-page'
+    <PageWrap
+      className='product-detail-page'
       style={{ backgroundColor: style.backgroundColor, color: style.color }}>
-      <Container>
+      {requestState === ERequestStatus.PENDING && <Loading />}
+      <Container className='product-detail'>
         <Row>
           <Col md='6'>
             <div className='product-img__wrap'>
               <img
                 src={
-                  process.env.REACT_APP_BASE_URL + product.images ||
+                  process.env.REACT_APP_BASE_URL + currentProduct.images ||
                   Media.errorLoading
                 }
                 alt=''
@@ -63,9 +85,9 @@ const DetailProductPage = () => {
 
           <Col md='6'>
             <div className='product-detail-infor'>
-              <h2 className='product-title'>{product.product_name}</h2>
+              <h2 className='product-title'>{currentProduct.product_name}</h2>
               <div className='product-price'>
-                <span>{product.price.toLocaleString()}đ</span>
+                <span>{currentProduct.price.toLocaleString()}đ</span>
               </div>
 
               <div className='btn-wrap'>
@@ -74,7 +96,7 @@ const DetailProductPage = () => {
                 </div>
                 <div
                   className='btn-item'
-                  onClick={() => handleAddToCartClick(product)}>
+                  onClick={() => handleAddToCartClick()}>
                   <span className=''>Add to Cart</span>
                 </div>
               </div>
@@ -83,11 +105,11 @@ const DetailProductPage = () => {
                 className='product-desc'
                 style={{ borderColor: style.borderColor }}>
                 <h3 className='product-desc-title'>Thông tin sản phẩm</h3>
-                {/* <span className="detail">{product.description}</span> */}
+                {/* <span className="detail">{currentProduct.description}</span> */}
                 <div
                   className='detail'
                   dangerouslySetInnerHTML={{
-                    __html: product.description,
+                    __html: currentProduct.description,
                   }}></div>
               </div>
             </div>
@@ -99,7 +121,7 @@ const DetailProductPage = () => {
         show={showLoginModal}
         handleClose={() => setShowLoginModal(false)}
       />
-    </div>
+    </PageWrap>
   );
 };
 

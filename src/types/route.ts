@@ -6,4 +6,7 @@ export enum ERouterPath {
   ACCOUNT = '/account',
   HOME = '/',
   DETAIL_PRODUCT = `/detail-product`,
+  CUSTOMER_INFO = '/customer-info',
+  PAYMENT = '/payment',
+  REVIEW = '/review',
 }

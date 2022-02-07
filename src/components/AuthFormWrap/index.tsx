@@ -1,7 +1,10 @@
 import React from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { RootState } from 'src/stores/rootReducer';
 import { ILoginRequestData } from 'src/types/authTypes';
+import { ERequestStatus } from 'src/types/commonType';
+import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 import './AuthFormWrap.scss';
 
 interface IProps {
@@ -19,6 +22,10 @@ const AuthFormWrap = ({
   disableBtn,
   handleSubmitClick,
 }: IProps) => {
+  const { requestStatus } = useAppSelector(
+    (state: RootState) => state.authState
+  );
+
   return (
     <Card className='shadow auth-form-wrap'>
       <Card.Title className='auth-form-title'>{title}</Card.Title>
@@ -33,7 +40,7 @@ const AuthFormWrap = ({
               variant='primary'
               disabled={disableBtn ? disableBtn : false}
               className={disableBtn ? 'isDisable' : ''}>
-              {title}
+              {requestStatus === ERequestStatus.PENDING ? 'Loading' : title}
             </Button>
           </div>
         </Form>

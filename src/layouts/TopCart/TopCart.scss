@@ -1,0 +1,40 @@
+@import 'src/variable.scss';
+
+.top-cart {
+  .top-cart-header {
+    border-bottom: 1px solid rgba(170, 170, 170, 0.6);
+    display: flex;
+
+    .top-cart-title {
+      font-weight: 600;
+      padding: toRem(6) 0 toRem(4);
+    }
+  }
+
+  .top-cart-footer {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .top-cart-btn {
+      margin: toRem(6);
+      padding: toRem(8);
+      border-radius: toRem(5);
+
+      font-weight: 600;
+      border: 1px solid $primary-color;
+      background-color: unset;
+      transition: color 0.2s background-color 0.3s;
+
+      &:first-child {
+        background-color: $primary-color;
+        color: $white-text-color;
+      }
+
+      &:last-child:hover {
+        background-color: $primary-color;
+        color: $white-text-color;
+      }
+    }
+  }
+}

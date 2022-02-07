@@ -6,7 +6,7 @@ import { RootState } from 'src/stores/rootReducer';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 
 const PrivateRoute = () => {
-  const token = useAppSelector((state: RootState) => state.auth.token);
+  const token = useAppSelector((state: RootState) => state.authState.token);
   const navigate = useNavigate();
 
   const [showAuthModal, setShowAuthModal] = useState(false);

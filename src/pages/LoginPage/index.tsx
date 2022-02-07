@@ -1,13 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import { useForm } from 'react-hook-form'; 
+import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthFormWrap from 'src/components/AuthFormWrap';
 import { loginMethod } from 'src/services/auth/authAction';
 import { RootState } from 'src/stores/rootReducer';
-import { ILoginRequestData } from 'src/types/authTypes'; 
-import { useAppDispatch, useAppSelector } from 'src/utils/hook.ts/customReduxHook';
+import { ILoginRequestData } from 'src/types/authTypes';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from 'src/utils/hook.ts/customReduxHook';
 import { loginSchema } from 'src/utils/yup';
 
 interface LocationState {
@@ -21,7 +24,7 @@ const LoginPage = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const token = useAppSelector((state: RootState) => state.auth.token);
+  const token = useAppSelector((state: RootState) => state.authState.token);
 
   const navigate = useNavigate();
   let location = useLocation();
@@ -45,7 +48,7 @@ const LoginPage = () => {
             type='text'
             {...form.register('username')}
             name='username'
-            placeholder='Enter username'  
+            placeholder='Enter username'
           />
           <Form.Text className='text-danger'>
             {form.formState.errors.username?.message}

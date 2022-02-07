@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+import Loading from 'src/components/Loading';
+import PageWrap from 'src/components/PageWrap';
 import ProductList from 'src/components/ProductList';
 import { getAllProductMethod } from 'src/services/product/productAction';
 import { RootState } from 'src/stores/rootReducer';
+import { ERequestStatus } from 'src/types/commonType';
 import {
   useAppDispatch,
   useAppSelector,
@@ -10,8 +13,8 @@ import {
 
 const ProductsPage = () => {
   const dispatch = useAppDispatch();
-  const productList = useAppSelector(
-    (state: RootState) => state.product.productList
+  const { productList, requestState } = useAppSelector(
+    (state: RootState) => state.productState
   );
 
   useEffect(() => {
@@ -19,11 +22,12 @@ const ProductsPage = () => {
   }, [dispatch]);
 
   return (
-    <div className='product-page'>
+    <PageWrap className='product-page'>
+      {requestState === ERequestStatus.PENDING && <Loading />}
       <Container>
         <ProductList productList={productList} />
       </Container>
-    </div>
+    </PageWrap>
   );
 };
 

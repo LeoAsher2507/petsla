@@ -1,21 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface ITheme {
+export interface IStyle {
+  backgroundColor: string;
+  backgroundColor1: string;
+  color: string;
+  colorBlur: string;
+  boxShadowColor: string;
+  boxShadowColor1: string;
+  borderColor: string;
+  primaryColor: string;
+}
+
+export interface ITheme {
   isLightTheme: boolean;
-  style: {
-    backgroundColor: string;
-    color: string;
-    colorBlur: string;
-    boxShadowColor: string;
-    boxShadowColor1: string;
-    borderColor: string;
-    primaryColor: string;
-  };
+  style: IStyle;
 }
 
 const _theme = {
   lightTheme: {
     backgroundColor: '#fefefe',
+    backgroundColor1: '#F6F9FC',
     color: 'black',
     colorBlur: '#444',
     boxShadowColor: 'rgba(0, 0, 0, 0.1)',
@@ -24,7 +28,8 @@ const _theme = {
     primaryColor: 'rgb(230, 150, 70)',
   },
   darkTheme: {
-    backgroundColor: '#222',
+    backgroundColor: '#252525',
+    backgroundColor1: '#202020',
     color: '#eee',
     colorBlur: '#bbb',
     boxShadowColor: 'rgba(0, 0, 0, 0.3)',

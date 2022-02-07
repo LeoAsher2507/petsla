@@ -3,6 +3,7 @@
   position: sticky;
   top: 0;
   z-index: $top-nav-zindex;
+  
 
   ul {
     padding-left: 0;
@@ -23,6 +24,7 @@
     .top-nav__branch {
       width: toRem(160);
       position: relative;
+      user-select: none;
 
       display: flex;
       align-items: center;
@@ -43,6 +45,7 @@
         margin: toRem(10);
         position: relative;
         cursor: pointer;
+        user-select: none;
 
         a {
           font-size: toRem(16);
@@ -230,52 +233,23 @@
           z-index: $top-nav-zindex + 2;
         }
 
-        & > .top-nav__cart-icon {
-          position: relative;
-          background-color: unset;
+        span {
+          position: absolute;
+          right: 0;
+          top: 0;
+          display: inline-block;
+          transform: translate(70%, -40%);
 
-          .bi-x-lg {
-            display: none;
-          }
+          width: toRem(25);
+          height: toRem(25);
+          line-height: toRem(21.5);
+          border-radius: 50%;
 
-          .top-nav-cart-icon {
-            position: relative;
-
-            span {
-              position: absolute;
-              right: 0;
-              top: 0;
-              transform: translate(70%, -40%);
-
-              width: toRem(25);
-              height: toRem(25);
-              line-height: toRem(21.5);
-              border-radius: 50%;
-
-              font-size: toRem(12);
-              font-weight: 700;
-              color: white;
-              background-color: $primary-color;
-            }
-          }
-        }
-        & > input[type='checkbox']:checked ~ .top-nav__cart-icon {
-          .bi-x-lg {
-            display: block;
-          }
-          .top-nav-cart-icon {
-            display: none;
-          }
-        }
-
-        & > input[type='checkbox']:checked ~ .nav-overlay {
-          display: block;
-          opacity: 1;
-        }
-
-        & > input[type='checkbox']:checked ~ .top-nav-cart-wrap {
-          transform: scale(1);
-          opacity: 1;
+          user-select: none;
+          font-size: toRem(12);
+          font-weight: 700;
+          color: white;
+          background-color: $primary-color;
         }
       }
       // ennd of top nav cart

@@ -48,9 +48,9 @@
 
       border-radius: toRem(5);
       text-align: center;
-      background-color: $primary-color1;
+      background-color: $primary-color-dark;
 
-      & > div {
+      .button-wrap {
         flex: 1;
         display: flex;
         justify-content: center;
@@ -60,6 +60,7 @@
         border-radius: toRem(5);
         padding: toRem(6) 0;
         overflow: hidden;
+        user-select: none;
 
         cursor: pointer;
 

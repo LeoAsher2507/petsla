@@ -1,18 +1,21 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import PrivateRoute from 'src/components/PrivateRoute';
-import PublicRoute from 'src/components/PublicRoute';
+import PrivateRoute from 'src/components/Navigation/PrivateRoute';
 import AccountPage from 'src/pages/AccountPage';
+import CartPage from 'src/pages/CartPage';
+import PaymentPage from 'src/pages/PaymentPage';
+import ReviewPage from 'src/pages/ReviewPage';
+import CustomerInFoPage from 'src/pages/CustomerInFoPage';
 import DetailProductPage from 'src/pages/DetailProductPage';
-import HomePage from 'src/pages/HomePage';
 import LoginPage from 'src/pages/LoginPage';
 import ProductsPage from 'src/pages/ProductsPage';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
+import HomePage from 'src/pages/HomePage';
 
 function App() {
-  const style = useAppSelector((state: RootState) => state.theme.style);
+  const style = useAppSelector((state: RootState) => state.themeState.style);
 
   return (
     <BrowserRouter>
@@ -22,19 +25,23 @@ function App() {
         <Routes>
           <Route path={ERouterPath.LOGIN} element={<LoginPage />} />
 
-          <Route path={ERouterPath.HOME} element={<PublicRoute />}>
-            <Route path={ERouterPath.ACCOUNT} element={<PrivateRoute />}>
-              <Route path={ERouterPath.ACCOUNT} element={<AccountPage />} />
-            </Route>
-
-            <Route path={ERouterPath.PRODUCT_LIST} element={<ProductsPage />} />
-            <Route path={ERouterPath.CART} element={<h3>Cart</h3>} />
-            <Route path={ERouterPath.HOME} element={<HomePage />} />
-            <Route
-              path={`${ERouterPath.DETAIL_PRODUCT}-:id`}
-              element={<DetailProductPage />}
-            />
+          <Route path={ERouterPath.ACCOUNT} element={<PrivateRoute />}>
+            <Route path={ERouterPath.ACCOUNT} element={<AccountPage />} />
           </Route>
+
+          <Route path={ERouterPath.PRODUCT_LIST} element={<ProductsPage />} />
+          <Route path={ERouterPath.HOME} element={<HomePage />} />
+          <Route path={ERouterPath.CART} element={<CartPage />} />
+          <Route
+            path={ERouterPath.CUSTOMER_INFO}
+            element={<CustomerInFoPage />}
+          />
+          <Route path={ERouterPath.PAYMENT} element={<PaymentPage />} />
+          <Route path={ERouterPath.REVIEW} element={<ReviewPage />} />
+          <Route
+            path={`${ERouterPath.DETAIL_PRODUCT}-:id`}
+            element={<DetailProductPage />}
+          />
         </Routes>
       </div>
     </BrowserRouter>
