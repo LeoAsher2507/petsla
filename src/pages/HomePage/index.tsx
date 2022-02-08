@@ -1,12 +1,13 @@
-import React from "react";
-import HomeBanner from "src/partials/HomeBanner";
-import "./HomePage.scss";
+import React from 'react';
+import PageWrap from 'src/components/PageWrap';
+import HomeBanner from 'src/layouts/HomeBanner';
+import './HomePage.scss';
 
 const HomePage = () => {
   return (
-    <div className="home-page">
+    <PageWrap className='home-page'>
       <HomeBanner />
-    </div>
+    </PageWrap>
   );
 };
 
