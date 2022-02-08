@@ -12,7 +12,7 @@ interface IInitialState {
   currentProduct: IProduct;
   cartList: ICartProduct[];
   totalInCart: ITotalInCart;
-  requestState: ERequestStatus;
+  requestStatus: ERequestStatus;
 }
 
 interface ITotalInCart {
@@ -38,7 +38,7 @@ const initialState: IInitialState = {
     quantity: 0,
     price: 0,
   },
-  requestState: ERequestStatus.FULFILLED,
+  requestStatus: ERequestStatus.FULFILLED,
 };
 
 const calculateTotalInCart = (cartList: ICartProduct[]): ITotalInCart => {
@@ -129,26 +129,26 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllProductMethod.pending, (state, action) => {
-        state.requestState = ERequestStatus.PENDING;
+        state.requestStatus = ERequestStatus.PENDING;
       })
 
       .addCase(getAllProductMethod.fulfilled, (state, action) => {
         state.productList = action.payload.data;
-        state.requestState = ERequestStatus.FULFILLED;
+        state.requestStatus = ERequestStatus.FULFILLED;
       })
 
       .addCase(getOneProductMethod.pending, (state, action) => {
-        state.requestState = ERequestStatus.PENDING;
+        state.requestStatus = ERequestStatus.PENDING;
       })
 
       .addCase(getOneProductMethod.fulfilled, (state, action) => {
         state.currentProduct = action.payload.data;
-        state.requestState = ERequestStatus.FULFILLED;
+        state.requestStatus = ERequestStatus.FULFILLED;
       })
 
       .addCase(getOneProductMethod.rejected, (state, action) => {
         toast.error('Get product fail!');
-        state.requestState = ERequestStatus.REJECTED;
+        state.requestStatus = ERequestStatus.REJECTED;
       });
   },
 });

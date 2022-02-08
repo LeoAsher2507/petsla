@@ -1,0 +1,31 @@
+@import 'src/variable.scss';
+
+.custome-pagination {
+  margin: toRem(30) toRem(4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  .page-item .page-link:hover {
+    color: $primary-color;
+  }
+
+  .page-item.active .page-link {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+
+  .select-products-per-page {
+    display: flex;
+    align-items: center;
+
+    .label {
+      margin: 0 toRem(10) 0 0;
+    }
+  }
+}

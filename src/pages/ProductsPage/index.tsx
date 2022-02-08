@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
+import CustomPagination from 'src/components/CustomPagination';
 import Loading from 'src/components/Loading';
 import PageWrap from 'src/components/PageWrap';
 import ProductList from 'src/components/ProductList';
@@ -13,7 +14,7 @@ import {
 
 const ProductsPage = () => {
   const dispatch = useAppDispatch();
-  const { productList, requestState } = useAppSelector(
+  const { productList, requestStatus } = useAppSelector(
     (state: RootState) => state.productState
   );
 
@@ -21,11 +22,29 @@ const ProductsPage = () => {
     dispatch(getAllProductMethod());
   }, [dispatch]);
 
+  const [productsPerPage, setProductsPerPage] = useState(12);
+  // const productsPerPage = 12;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirsProduct = indexOfLastProduct - productsPerPage;
+  const currentProductList = productList.slice(
+    indexOfFirsProduct,
+    indexOfLastProduct
+  );
+
   return (
     <PageWrap className='product-page'>
-      {requestState === ERequestStatus.PENDING && <Loading />}
+      {requestStatus === ERequestStatus.PENDING && <Loading />}
       <Container>
-        <ProductList productList={productList} />
+        <ProductList productList={currentProductList} />
+
+        <CustomPagination
+          setProductsPerPage={setProductsPerPage}
+          totalPage={Math.ceil(productList.length / productsPerPage)}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </Container>
     </PageWrap>
   );
