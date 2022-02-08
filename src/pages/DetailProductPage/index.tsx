@@ -24,7 +24,7 @@ import './DetailProductPage.scss';
 const DetailProductPage = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { currentProduct, requestState } = useAppSelector(
+  const { currentProduct, requestStatus } = useAppSelector(
     (state: RootState) => state.productState
   );
 
@@ -68,7 +68,7 @@ const DetailProductPage = () => {
     <PageWrap
       className='product-detail-page'
       style={{ backgroundColor: style.backgroundColor, color: style.color }}>
-      {requestState === ERequestStatus.PENDING && <Loading />}
+      {requestStatus === ERequestStatus.PENDING && <Loading />}
       <Container className='product-detail'>
         <Row>
           <Col md='6'>
