@@ -1,0 +1,33 @@
+{
+  "title": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "profile": "Profile",
+    "forgotPassword": "Forgot password",
+    "resetPassword": "Reset Password",
+    "toggleTheme": "Toggle theme",
+    "cart": "Cart"
+  },
+  "label": {
+    "fullname": "Full name",
+    "username": "Username",
+    "password": "Password",
+    "gender": {
+      "title": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    },
+    "rememberPassword": "Remember me"
+  },
+  "message": {
+    "error": {
+      "empty": "is required"
+    }
+  },
+  "languageTitle": {
+    "vn": "Vietnamese",
+    "en": "English"
+  }
+}

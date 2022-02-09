@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import StyledLink from 'src/components/customComponents/StyledLink';
+import ChangeLangPopOver from 'src/components/modals/ChangeLangPopOver';
 import ConfirmModal from 'src/components/modals/ConfirmModal';
 import LoginModal from 'src/components/modals/LoginModal';
 import TopCart from 'src/layouts/TopCart';
@@ -19,6 +21,8 @@ const TopNav = () => {
   const { themeState, authState, productState } = useAppSelector(
     (state: RootState) => state
   );
+
+  const { t } = useTranslation();
 
   const { style, isLightTheme } = themeState;
   const { token } = authState;
@@ -109,6 +113,10 @@ const TopNav = () => {
         </ul>
 
         <div className='top-nav-btn-wrap'>
+          <div className='top-nav-item language-wrap'>
+            <ChangeLangPopOver />
+          </div>
+
           <div
             className='top-nav__theme top-nav-item d-none d-lg-block'
             onClick={() => handleToggleThemeClick()}>
@@ -123,7 +131,7 @@ const TopNav = () => {
                 backgroundColor: style.colorBlur,
                 color: style.backgroundColor,
               }}>
-              Toggle Theme
+              {t('title.toggleTheme')}
             </div>
           </div>
 
@@ -139,7 +147,7 @@ const TopNav = () => {
                     backgroundColor: style.colorBlur,
                     color: style.backgroundColor,
                   }}>
-                  Đăng xuất
+                  {t('title.logout')}
                 </div>
               </>
             ) : (
@@ -153,7 +161,7 @@ const TopNav = () => {
                     backgroundColor: style.colorBlur,
                     color: style.backgroundColor,
                   }}>
-                  Đăng nhập
+                   { t('title.login') }
                 </div>
               </>
             )}
@@ -169,7 +177,7 @@ const TopNav = () => {
                 backgroundColor: style.colorBlur,
                 color: style.backgroundColor,
               }}>
-              Cart
+               { t('title.cart') }
             </div>
             <span style={{ border: `2px solid ${style.backgroundColor}` }}>
               {totalInCart.quantity}
@@ -186,11 +194,10 @@ const TopNav = () => {
         saveBtnText='Logout'
         show={showConfirmLogout}
         handleClose={handleCloseConfirmLogout}
-        handleSave={handleLogout}></ConfirmModal>
+        handleSave={handleLogout}
+      />
 
-      <LoginModal
-        show={showAuthModal}
-        handleClose={handleCloseAuthModal}></LoginModal>
+      <LoginModal show={showAuthModal} handleClose={handleCloseAuthModal} />
     </div>
   );
 };

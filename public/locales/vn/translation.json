@@ -1,0 +1,33 @@
+{
+  "title": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "register": "Đăng ký",
+    "profile": "Hồ sơ",
+    "forgotPassword": "Quên mật khẩu",
+    "resetPassword": "Khôi phục mật khẩu",
+    "toggleTheme": "Đổi theme",
+    "cart": "Giỏ hàng"
+  },
+  "label": {
+    "fullname": "Họ và tên",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "gender": {
+      "title": "Giới tính",
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác"
+    },
+    "rememberPassword": "Nhớ mật khẩu"
+  },
+  "message": {
+    "error": {
+      "empty": "không được để trống"
+    }
+  },
+  "languageTitle": {
+    "vn": "Tiếng Việt",
+    "en": "Tiếng Anh"
+  }
+}

@@ -1,0 +1,37 @@
+@import 'src/variable.scss';
+
+.change-lang-btn {
+  background-size: cover;
+  background-position: center;
+  width: toRem(24);
+  height: toRem(24);
+  border-radius: 50%;
+}
+.change-lang-pop-over {
+  * {
+    color: inherit;
+  }
+
+  .popover-body {
+    padding: 0 toRem(16);
+    .lang-list {
+      padding: 0;
+      margin: 0;
+
+      .lang-option {
+        display: flex;
+        align-items: center;
+        margin: toRem(10) 0;
+        cursor: pointer;
+
+        .lang-thumbnail {
+          background-size: cover;
+          background-position: center;
+          width: toRem(32);
+          height: toRem(20);
+          margin-right: toRem(10);
+        }
+      }
+    }
+  }
+}

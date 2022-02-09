@@ -23,6 +23,7 @@ const CustomPagination = ({
   const handleChangeProductsPerPage = (number: number) => {
     window.scrollTo(0, 0);
     setProductsPerPage(number);
+    setCurrentPage(1);
   };
 
   return (
