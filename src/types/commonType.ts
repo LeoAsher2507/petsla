@@ -3,3 +3,8 @@ export enum ERequestStatus {
   FULFILLED,
   REJECTED,
 }
+
+export enum ELanguage {
+  ENGLISH = 'en',
+  VIETNAMESE = 'vn',
+}
