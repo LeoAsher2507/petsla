@@ -1,13 +1,23 @@
 {
   "title": {
+    "homepage": "Home",
+    "shop": "Shop",
+    "account": "Account",
+    "cart": "Cart",
     "login": "Login",
     "logout": "Logout",
     "register": "Register",
     "profile": "Profile",
     "forgotPassword": "Forgot password",
-    "resetPassword": "Reset Password",
+    "resetPassword": "Reset password",
     "toggleTheme": "Toggle theme",
-    "cart": "Cart"
+    "item": "Items",
+    "view": "View",
+    "checkout": "Checkout",
+    "quantity": "Quantity",
+    "totalPrice": "Total price",
+    "apply": "Apply",
+    "page": "Page"
   },
   "label": {
     "fullname": "Full name",
@@ -19,12 +29,15 @@
       "female": "Female",
       "other": "Other"
     },
-    "rememberPassword": "Remember me"
+    "rememberPassword": "Remember me",
+    "voucher": "Voucher",
+    "note": "Note"
   },
   "message": {
     "error": {
       "empty": "is required"
-    }
+    },
+    "noProduct": "There's no item!"
   },
   "languageTitle": {
     "vn": "Vietnamese",

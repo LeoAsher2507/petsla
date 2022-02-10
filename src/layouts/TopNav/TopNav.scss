@@ -53,8 +53,7 @@
           font-weight: 700;
           text-transform: uppercase;
 
-          & > i {
-            margin-left: toRem(5);
+          & > i { 
             position: relative;
             transition: 0.3s;
           }

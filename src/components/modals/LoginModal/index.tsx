@@ -2,13 +2,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect } from 'react';
 import { Form, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import AuthFormModal from 'src/components/modals/AuthFormModal';
 import { loginMethod } from 'src/services/auth/authAction';
 import { RootState } from 'src/stores/rootReducer';
 import { ILoginRequestData } from 'src/types/authTypes';
 import {
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import { loginSchema } from 'src/utils/yup';
 
@@ -22,6 +23,8 @@ const LoginModal = ({ show, handleClose }: IProps) => {
     username: '',
     password: '',
   };
+
+  const { t } = useTranslation();
 
   const form = useForm({
     resolver: yupResolver(loginSchema),
@@ -40,43 +43,47 @@ const LoginModal = ({ show, handleClose }: IProps) => {
       handleClose();
       form.reset();
     }
+
+    return () => {
+      form.reset()
+    }
   }, [token, handleClose, form]);
 
   return (
     <Modal className='login-modal' show={show} onHide={handleClose} centered>
       <AuthFormModal
-        modalTitle='Login'
+        modalTitle={t('title.login')}
         form={form}
         handleLogin={handleLogin}
         handleClose={handleClose}>
-        <Form.Group className='mb-3' controlId='username'>
-          <Form.Label>User name</Form.Label>
+        <Form.Group className='mt-3' controlId='username'>
+          {/* <Form.Label> {t('label.username')} </Form.Label> */}
           <Form.Control
             type='text'
             {...form.register('username')}
             name='username'
-            placeholder='Enter username'
+            placeholder={t('label.username')}
           />
           <Form.Text className='text-danger'>
             {form.formState.errors.username?.message}
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='password'>
-          <Form.Label>Password</Form.Label>
+        <Form.Group className='mt-3' controlId='password'>
+          {/* <Form.Label> {t('label.password')} </Form.Label> */}
           <Form.Control
             type='password'
             {...form.register('password')}
             name='password'
-            placeholder='Enter password'
+            placeholder={t('label.password')}
           />
           <Form.Text className='text-danger'>
             {form.formState.errors.password?.message}
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-          <Form.Check type='checkbox' label='Remember me?' />
+        <Form.Group className='mt-2' controlId='formBasicCheckbox'>
+          <Form.Check type='checkbox' label={t('label.rememberPassword')} />
         </Form.Group>
       </AuthFormModal>
     </Modal>

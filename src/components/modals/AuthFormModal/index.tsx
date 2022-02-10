@@ -25,7 +25,7 @@ const AuthFormModal = ({
       <Modal.Header className='auth-modal-header' closeButton>
         <span>{modalTitle}</span>
       </Modal.Header>
-      <Modal.Body>{children}</Modal.Body>
+      <Modal.Body className=''>{children}</Modal.Body>
       <ModalFooter handleClose={handleClose} />
     </Form>
   );
