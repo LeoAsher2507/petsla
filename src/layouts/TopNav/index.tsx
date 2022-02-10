@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import StyledLink from 'src/components/customComponents/StyledLink';
 import ChangeLangPopOver from 'src/components/modals/ChangeLangPopOver';
-import ConfirmModal from 'src/components/modals/ConfirmModal';
 import LoginModal from 'src/components/modals/LoginModal';
 import TopCart from 'src/layouts/TopCart';
 import { logoutMethod } from 'src/services/auth/authSlice';
@@ -12,7 +11,7 @@ import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import {
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import './TopNav.scss';
@@ -28,7 +27,6 @@ const TopNav = () => {
   const { token } = authState;
   const { totalInCart } = productState;
 
-  const [showConfirmLogout, setShowConfirmLogout] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showCart, setShowCart] = useState(false);
 
@@ -51,17 +49,17 @@ const TopNav = () => {
   };
 
   const handleLogoutClick = () => {
-    setShowConfirmLogout(true);
-  };
-
-  const handleCloseConfirmLogout = () => {
-    setShowConfirmLogout(false);
-  };
-
-  const handleLogout = () => {
-    handleCloseConfirmLogout();
     dispatch(logoutMethod());
   };
+
+  // const handleCloseConfirmLogout = () => {
+  //   setShowConfirmLogout(false);
+  // };
+
+  // const handleLogout = () => {
+  //   handleCloseConfirmLogout();
+  //   dispatch(logoutMethod());
+  // };
 
   return (
     <div className='top-nav' style={{ backgroundColor: style.backgroundColor }}>
@@ -74,12 +72,15 @@ const TopNav = () => {
 
         <ul className='top-nav__list d-none d-lg-flex'>
           <li className='top-nav-item'>
-            <StyledLink to={ERouterPath.HOME}>Home</StyledLink>
+            <StyledLink to={ERouterPath.HOME}>
+              {' '}
+              {t('title.homepage')}{' '}
+            </StyledLink>
           </li>
 
           <li className='top-nav-item'>
             <StyledLink to={ERouterPath.PRODUCT_LIST}>
-              <span>Sản phẩm</span>
+              <span> {t('title.shop')} </span>
               <i className='bi bi-chevron-down'></i>
             </StyledLink>
 
@@ -104,11 +105,14 @@ const TopNav = () => {
           </li>
 
           <li className='top-nav-item'>
-            <StyledLink to={ERouterPath.ACCOUNT}>Tài khoản</StyledLink>
+            <StyledLink to={ERouterPath.ACCOUNT}>
+              {' '}
+              {t('title.account')}{' '}
+            </StyledLink>
           </li>
 
           <li className='top-nav-item'>
-            <StyledLink to={ERouterPath.CART}>Cart</StyledLink>
+            <StyledLink to={ERouterPath.CART}> {t('title.cart')} </StyledLink>
           </li>
         </ul>
 
@@ -161,7 +165,7 @@ const TopNav = () => {
                     backgroundColor: style.colorBlur,
                     color: style.backgroundColor,
                   }}>
-                   { t('title.login') }
+                  {t('title.login')}
                 </div>
               </>
             )}
@@ -177,7 +181,7 @@ const TopNav = () => {
                 backgroundColor: style.colorBlur,
                 color: style.backgroundColor,
               }}>
-               { t('title.cart') }
+              {t('title.cart')}
             </div>
             <span style={{ border: `2px solid ${style.backgroundColor}` }}>
               {totalInCart.quantity}
@@ -187,15 +191,6 @@ const TopNav = () => {
       </Container>
 
       <TopCart showCart={showCart} handleCloseTopCart={handleCloseTopCart} />
-
-      <ConfirmModal
-        modalTitle='Confirm Logout'
-        modalContent='Are you sure to log out?'
-        saveBtnText='Logout'
-        show={showConfirmLogout}
-        handleClose={handleCloseConfirmLogout}
-        handleSave={handleLogout}
-      />
 
       <LoginModal show={showAuthModal} handleClose={handleCloseAuthModal} />
     </div>

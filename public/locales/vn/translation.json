@@ -1,5 +1,9 @@
 {
   "title": {
+    "homepage": "Trang chủ",
+    "shop": "Cửa hàng",
+    "account": "Tài khoản",
+    "cart": "Giỏ hàng",
     "login": "Đăng nhập",
     "logout": "Đăng xuất",
     "register": "Đăng ký",
@@ -7,7 +11,13 @@
     "forgotPassword": "Quên mật khẩu",
     "resetPassword": "Khôi phục mật khẩu",
     "toggleTheme": "Đổi theme",
-    "cart": "Giỏ hàng"
+    "item": "Sản phẩm",
+    "view": "Xem",
+    "checkout": "Thanh toán",
+    "quantity": "Số lượng",
+    "totalPrice": "Thành tiền",
+    "apply": "Áp dụng",
+    "page": "Trang"
   },
   "label": {
     "fullname": "Họ và tên",
@@ -19,12 +29,15 @@
       "female": "Nữ",
       "other": "Khác"
     },
-    "rememberPassword": "Nhớ mật khẩu"
+    "rememberPassword": "Nhớ mật khẩu",
+    "voucher": "Mã giảm giá",
+    "note": "Chú ý"
   },
   "message": {
     "error": {
       "empty": "không được để trống"
-    }
+    },
+    "noProduct": "Không có sản phẩm nào!"
   },
   "languageTitle": {
     "vn": "Tiếng Việt",

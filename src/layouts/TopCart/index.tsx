@@ -1,18 +1,19 @@
 import React from 'react';
 import { Offcanvas } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import NoProduct from 'src/components/NoProduct';
 import TopCartItem from 'src/components/TopCartItem';
 import {
   handleMinus,
   handlePlus,
-  removeFromCart
+  removeFromCart,
 } from 'src/services/product/productSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import {
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import './TopCart.scss';
 
@@ -23,6 +24,7 @@ interface ITopCartProps {
 
 const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { productState, themeState } = useAppSelector(
     (state: RootState) => state
@@ -58,13 +60,13 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
         closeButton
         closeVariant={isLightTheme ? undefined : 'white'}>
         <Offcanvas.Title className='top-cart-title'>
-          Cart: {totalInCart.quantity} items
+          {`${t('title.cart')}: ${totalInCart.quantity} ${t('title.item')}`}
         </Offcanvas.Title>
       </Offcanvas.Header>
 
       <Offcanvas.Body style={{ padding: 0 }}>
         {cartList.length === 0 ? (
-          <NoProduct message='Không có sản phẩm nào trong giỏ hàng!' />
+          <NoProduct message={t('message.noProduct')} />
         ) : (
           cartList.map((product) => (
             <TopCartItem
@@ -81,10 +83,11 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
 
       <div className='top-cart-footer'>
         <button className='top-cart-btn'>
-          {`Checkout (${totalInCart.price.toLocaleString()}đ)`}
+          {`${t('title.checkout')} (${totalInCart.price.toLocaleString()}đ)`}
         </button>
         <button className='top-cart-btn' onClick={handleViewCartClick}>
-          View cart
+          {/* View cart */}
+          {`${t('title.view')} ${t('title.cart')}`}
         </button>
       </div>
     </Offcanvas>

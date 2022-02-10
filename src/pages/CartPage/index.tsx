@@ -8,6 +8,7 @@ import {
   FormGroup,
   Row,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import CheckoutSteps from 'src/components/CheckoutSteps';
 import NoProduct from 'src/components/NoProduct';
 import PageWrap from 'src/components/PageWrap';
@@ -30,6 +31,8 @@ const CartPage = () => {
   const { productState, themeState } = useAppSelector(
     (state: RootState) => state
   );
+
+  const { t } = useTranslation();
   const { cartList, totalInCart } = productState;
   const { isLightTheme, style } = themeState;
 
@@ -60,7 +63,7 @@ const CartPage = () => {
         <Row>
           <Col xs='12' md='7' lg='8'>
             {cartList.length === 0 ? (
-              <NoProduct message='Không có sản phẩm nào trong giỏ hàng!' />
+              <NoProduct message={t('message.noProduct')} />
             ) : (
               <Card
                 style={{
@@ -91,14 +94,18 @@ const CartPage = () => {
               <div className='cart-page-content'>
                 <div className='header'>
                   <div className='header-wrap'>
-                    <span className='total-title'>Total Item:</span>
+                    <span className='total-title'>{`${t(
+                      'title.quantity'
+                    )}:`}</span>
                     <span className='total-value'>
-                      {`${totalInCart.quantity} items`}
+                      {`${totalInCart.quantity} ${t('title.item')}`}
                     </span>
                   </div>
 
                   <div className='header-wrap'>
-                    <span className='total-title'>Total price:</span>
+                    <span className='total-title'>{`${t(
+                      'title.totalPrice'
+                    )}:`}</span>
                     <span className='total-value'>
                       {`${totalInCart.price.toLocaleString()}đ`}
                     </span>
@@ -115,14 +122,14 @@ const CartPage = () => {
                             color: style.color,
                           }}
                           type='text'
-                          placeholder='Voucher'
+                          placeholder={`${t('label.voucher')}`}
                           id='cart-page-voucher'
                         />
                       </FormGroup>
-                      <button className='cart-page-btn'>Apply Voucher</button>
+                      <button className='cart-page-btn'>{`${t('title.apply')} ${t('label.voucher').toLowerCase()}`}</button>
                     </Form>
 
-                    <FloatingLabel label='Brief Note'>
+                    <FloatingLabel label={t('label.note')}>
                       <Form.Control
                         style={{
                           backgroundColor: style.backgroundColor1,

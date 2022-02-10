@@ -14,6 +14,7 @@ import { ERouterPath } from 'src/types/route';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 // import HomePage from 'src/pages/HomePage';
 import Loading from 'src/components/Loading';
+import ScrollToTopBtn from 'src/components/Navigation/ScrollToTopBtn';
 
 const ProductsPage = lazy(() => import('src/pages/ProductsPage'));
 const HomePage = lazy(() => import('src/pages/HomePage'));
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTopBtn />
       <div
         className='app'
         style={{ backgroundColor: style.backgroundColor, color: style.color }}>

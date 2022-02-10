@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Pagination } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import './CustomPagination.scss';
 
 interface IPaginationProps {
@@ -15,6 +16,8 @@ const CustomPagination = ({
   setProductsPerPage,
   currentPage,
 }: IPaginationProps) => {
+  const {t} = useTranslation();
+
   const handleChangePage = (page: number) => {
     window.scrollTo(0, 0);
     setCurrentPage(page);
@@ -28,7 +31,7 @@ const CustomPagination = ({
 
   return (
     <div className='custome-pagination'>
-      <Pagination>
+      <Pagination className='pagination-wrap'>
         <Pagination.Item
           disabled={currentPage === 1}
           onClick={() => handleChangePage(currentPage - 1)}>
@@ -53,7 +56,8 @@ const CustomPagination = ({
 
       <Form.Group className='select-products-per-page'>
         <Form.Label htmlFor='productsPerPage' className='label'>
-          Products/Page
+          {/* Products/Page */}
+          {`${t('title.item')}/${t('title.page')}`}
         </Form.Label>
         <Form.Select
           onChange={(event: any) =>
