@@ -1,22 +1,23 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import HomePage from 'src/pages/HomePage';
+import Loading from 'src/components/Loading';
 import PrivateRoute from 'src/components/Navigation/PrivateRoute';
+import ScrollToTopBtn from 'src/components/Navigation/ScrollToTopBtn';
+import LoginModal from 'src/layouts/modals/LoginModal';
+import RegisterModal from 'src/layouts/modals/RegisterModal';
 import AccountPage from 'src/pages/AccountPage';
 import CartPage from 'src/pages/CartPage';
-import PaymentPage from 'src/pages/PaymentPage';
-import ReviewPage from 'src/pages/ReviewPage';
+import ContactPage from 'src/pages/ContactPage';
 import CustomerInFoPage from 'src/pages/CustomerInFoPage';
 import DetailProductPage from 'src/pages/DetailProductPage';
 import LoginPage from 'src/pages/LoginPage';
+import PaymentPage from 'src/pages/PaymentPage';
+import ReviewPage from 'src/pages/ReviewPage';
 // import ProductsPage from 'src/pages/ProductsPage';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
-// import HomePage from 'src/pages/HomePage';
-import Loading from 'src/components/Loading';
-import ScrollToTopBtn from 'src/components/Navigation/ScrollToTopBtn';
-import RegisterModal from 'src/layouts/modals/RegisterModal';
-import LoginModal from 'src/layouts/modals/LoginModal';
 
 const ProductsPage = lazy(() => import('src/pages/ProductsPage'));
 const HomePage = lazy(() => import('src/pages/HomePage'));
@@ -28,7 +29,7 @@ function App() {
     <BrowserRouter>
       <div
         className='app'
-        style={{ backgroundColor: style.backgroundColor, color: style.color }}>
+        style={{ backgroundColor: style.backgroundColor1, color: style.color }}>
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path={ERouterPath.LOGIN} element={<LoginPage />} />
@@ -37,10 +38,11 @@ function App() {
               <Route path={ERouterPath.ACCOUNT} element={<AccountPage />} />
             </Route>
 
-            <Route path={ERouterPath.PRODUCT_LIST} element={<ProductsPage />} />
+            <Route path={ERouterPath.SHOP} element={<ProductsPage />} />
 
             <Route path={ERouterPath.HOME} element={<HomePage />} />
             <Route path={ERouterPath.CART} element={<CartPage />} />
+            <Route path={ERouterPath.CONTACT} element={<ContactPage />} />
             <Route
               path={ERouterPath.CUSTOMER_INFO}
               element={<CustomerInFoPage />}

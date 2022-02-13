@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import CustomPagination from 'src/components/customComponents/CustomPagination';
 import Loading from 'src/components/Loading';
-import PageWrap from 'src/components/PageWrap';
+import PageWrap from 'src/components/Navigation/PageWrap';
 import ProductList from 'src/components/ProductList';
 import { getAllProductMethod } from 'src/services/product/productAction';
 import { RootState } from 'src/stores/rootReducer';

@@ -1,10 +1,11 @@
 export enum ERouterPath {
   LOGIN = '/login',
   REGISTER = '/register',
-  PRODUCT_LIST = '/products',
+  SHOP = '/shop',
   CART = '/cart',
   ACCOUNT = '/account',
   HOME = '/',
+  CONTACT = '/contact',
   DETAIL_PRODUCT = `/detail-product`,
   CUSTOMER_INFO = '/customer-info',
   PAYMENT = '/payment',

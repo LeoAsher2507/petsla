@@ -1,12 +1,12 @@
 import React from 'react';
 import PageWrap from 'src/components/Navigation/PageWrap';
 
-const AccountPage = () => {
+const ContactPage = () => {
   return (
-    <PageWrap className='cart-page'>
-      <h3>Account page</h3>
+    <PageWrap>
+      <div>ContactPage</div>
     </PageWrap>
   );
 };
 
-export default AccountPage;
+export default ContactPage;

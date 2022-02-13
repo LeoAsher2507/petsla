@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from 'src/components/Loading';
-import PageWrap from 'src/components/PageWrap';
+import PageWrap from 'src/components/Navigation/PageWrap';
 import { openLoginModal } from 'src/services/auth/authSlice';
 import { getOneProductMethod } from 'src/services/product/productAction';
 import {

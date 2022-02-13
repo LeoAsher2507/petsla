@@ -2,6 +2,7 @@
   "title": {
     "homepage": "Home",
     "shop": "Shop",
+    "category": "Category",
     "account": "Account",
     "cart": "Cart",
     "login": "Login",
@@ -17,7 +18,8 @@
     "quantity": "Quantity",
     "totalPrice": "Total price",
     "apply": "Apply",
-    "page": "Page"
+    "page": "Page",
+    "contact": "Contact"
   },
   "label": {
     "firstName": "First name",

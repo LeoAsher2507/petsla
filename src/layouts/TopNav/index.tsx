@@ -1,31 +1,23 @@
-import React, { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import React, { ChangeEvent, useState } from 'react';
+import { Button, Container, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import StyledLink from 'src/components/customComponents/StyledLink';
-import ChangeLangPopOver from 'src/layouts/modals/ChangeLangPopOver';
-// import LoginModal from 'src/components/modals/LoginModal';
 import TopCart from 'src/layouts/TopCart';
-import { logoutMethod, openLoginModal } from 'src/services/auth/authSlice';
-import { toggleTheme } from 'src/services/theme/ThemeSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
-import {
-  useAppDispatch,
-  useAppSelector,
-} from 'src/utils/hook.ts/customReduxHook';
+import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import './TopNav.scss';
 
 const TopNav = () => {
-  const { themeState, authState, productState } = useAppSelector(
+  const { themeState, productState } = useAppSelector(
     (state: RootState) => state
   );
-
   const { t } = useTranslation();
-
-  const { style, isLightTheme } = themeState;
-  const { token } = authState;
+  const { style } = themeState;
   const { totalInCart } = productState;
+
+  const [searchTerm, setSearchTerm] = useState('');
 
   // const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCart, setShowCart] = useState(false);
@@ -34,82 +26,48 @@ const TopNav = () => {
     setShowCart(false);
   };
 
-  const dispatch = useAppDispatch();
-
-  const handleToggleThemeClick = () => {
-    dispatch(toggleTheme());
-  };
-
-  const handleLoginClick = () => {
-    // setShowLoginModal(true);
-    dispatch(openLoginModal());
-  };
-
-  const handleLogoutClick = () => {
-    dispatch(logoutMethod());
+  const handleSearch = (event: ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
 
   return (
     <div className='top-nav' style={{ backgroundColor: style.backgroundColor }}>
-      <Container>
-        <div className='top-nav__branch'>
+      <Container className="top-nav-container">
+        <div className='top-nav__branch d-none d-md-flex '>
           <StyledLink to={ERouterPath.HOME}>
             <img src={Media.fullLogo} alt='' />
           </StyledLink>
         </div>
 
-        <ul className='top-nav__list d-none d-lg-flex'>
-          <li className='top-nav-item'>
-            <StyledLink to={ERouterPath.HOME}>
-              {' '}
-              {t('title.homepage')}{' '}
-            </StyledLink>
-          </li>
-
-          <li className='top-nav-item'>
-            <StyledLink to={ERouterPath.PRODUCT_LIST}>
-              <span> {t('title.shop')} </span>
-              <i className='bi bi-chevron-down'></i>
-            </StyledLink>
-
-            <ul
-              className='top-nav-product-list'
-              style={{ backgroundColor: style.backgroundColor }}>
-              {/* {category.map((cateItem) => (
-                <li key={cateItem.id} className="top-nav-product-item">
-                  <StyledLink to={`/products-list-${cateItem.id}`}>
-                    {cateItem.category_name}
-                  </StyledLink>
-                </li>
-              ))} */}
-              <li className='top-nav-product-item'>
-                <StyledLink
-                  style={{ background: style.primaryColor, color: '#fff' }}
-                  to={ERouterPath.PRODUCT_LIST}>
-                  Tất cả
-                </StyledLink>
-              </li>
-            </ul>
-          </li>
-
-          <li className='top-nav-item'>
-            <StyledLink to={ERouterPath.ACCOUNT}>
-              {' '}
-              {t('title.account')}{' '}
-            </StyledLink>
-          </li>
-
-          <li className='top-nav-item'>
-            <StyledLink to={ERouterPath.CART}> {t('title.cart')} </StyledLink>
-          </li>
-        </ul>
+        <div className='search-wrap'>
+          <Form onSubmit={handleSearch}>
+            <Form.Group className='d-flex'>
+              <Button className='search-btn' type='submit'>
+                Search
+              </Button>
+              <Form.Control
+                style={{
+                  backgroundColor: style.backgroundColor1,
+                  color: style.color,
+                }}
+                className='input-search'
+                type='text'
+                name='searchTerm'
+                value={searchTerm}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  setSearchTerm(event.target.value)
+                }
+                placeholder='Anything here is better than your ex'></Form.Control>
+            </Form.Group>
+          </Form>
+        </div>
 
         <div className='top-nav-btn-wrap'>
-          <div className='top-nav-item language-wrap'>
+          {/* <div className='top-nav-item language-wrap'>
             <ChangeLangPopOver />
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             className='top-nav__theme top-nav-item d-none d-lg-block'
             onClick={() => handleToggleThemeClick()}>
             {isLightTheme ? (
@@ -125,9 +83,9 @@ const TopNav = () => {
               }}>
               {t('title.toggleTheme')}
             </div>
-          </div>
+          </div> */}
 
-          <div className='auth-btn__wrap top-nav-item'>
+          {/* <div className='auth-btn__wrap top-nav-item'>
             {token ? (
               <>
                 <i
@@ -157,11 +115,14 @@ const TopNav = () => {
                 </div>
               </>
             )}
-          </div>
+          </div> */}
 
           <div
             className='top-nav__cart top-nav-item'
-            onClick={() => setShowCart(true)}>
+            onClick={() => {
+              console.log('ahihi22');
+              setShowCart(true);
+            }}>
             <i className='bi bi-cart3'></i>
             <div
               className='top-nav-item__title'

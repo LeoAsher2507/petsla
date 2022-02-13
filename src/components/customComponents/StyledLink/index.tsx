@@ -10,7 +10,7 @@ const StyledLink = ({ children, to, ...props }: LinkProps) => {
 
   return (
     <Link
-      style={{ color: match ? 'rgb(230, 150, 70)' : style.color }}
+      style={{ color: match ? 'rgb(230, 150, 70)' : style.color, textDecoration: 'none' }}
       to={to}
       {...props}>
       {children}
