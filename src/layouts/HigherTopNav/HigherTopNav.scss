@@ -1,0 +1,103 @@
+@import 'src/variable.scss';
+
+.higher-top-nav {
+  border-bottom: 1px solid;
+  z-index: $top-nav-zindex + 10;
+  position: relative;
+
+  .higher-top-nav-wrap {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 0;
+
+    .info-wrap {
+      display: flex;
+      align-items: stretch;
+
+      .info-item {
+        padding: toRem(10) 0;
+        display: flex;
+        align-items: center;
+
+        .text {
+          margin-left: toRem(8);
+        }
+      }
+
+      .info-item-divider {
+        margin: 0 toRem(16);
+        width: 1px;
+        border-bottom: 1px solid rgba(170, 170, 170, 0.3);
+        background-color: aqua;
+      }
+    }
+
+    .top-nav__branch {
+      width: toRem(120);
+      position: relative;
+      user-select: none;
+      padding: toRem(6) 0;
+
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .btn-wrap {
+      display: flex;
+
+      .higher-top-nav-item {
+        cursor: pointer;
+        position: relative;
+        margin: auto toRem(10);
+        label {
+          cursor: pointer;
+        }
+
+        i {
+          display: block;
+          margin-top: 3px;
+          font-size: toRem(26);
+        }
+
+        .higher-top-nav-item__title {
+          position: absolute;
+          left: 50%;
+          font-size: toRem(14);
+          padding: toRem(3) toRem(8);
+          border-radius: 3px;
+          white-space: nowrap;
+          transform: translate(-50%, 0px);
+          opacity: 0;
+          transition: 0.4s;
+        }
+
+        & > *:hover ~ .higher-top-nav-item__title {
+          transform: translate(-50%, -5px);
+          opacity: 1;
+        }
+
+        &:first-child {
+          .higher-top-nav-item__title {
+            transform: translate(-50%, 9px);
+          }
+
+          & > *:hover ~ .higher-top-nav-item__title {
+            transform: translate(-50%, 4px);
+            opacity: 1;
+          }
+        }
+
+        &:nth-child(2) {
+          i::before {
+            transform: scale(0.8);
+          }
+        }
+      }
+    }
+  }
+}

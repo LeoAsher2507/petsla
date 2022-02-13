@@ -10,12 +10,12 @@ const HomeBanner = () => {
     <div className='home-banner'>
       <Carousel>
         <Carousel.Item>
-          <Link to={ERouterPath.PRODUCT_LIST}>
+          <Link to={ERouterPath.SHOP}>
             <img srcSet={Media.bannerImg.banner1} alt='' />
           </Link>
         </Carousel.Item>
         <Carousel.Item>
-          <Link to={ERouterPath.PRODUCT_LIST}>
+          <Link to={ERouterPath.SHOP}>
             <img srcSet={Media.bannerImg.banner2} alt='' />
           </Link>
         </Carousel.Item>

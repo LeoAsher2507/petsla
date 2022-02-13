@@ -1,11 +1,17 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { RootState } from 'src/stores/rootReducer';
+import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import './Footer.scss';
 
 const Footer = () => {
+  const { style } = useAppSelector((state: RootState) => state.themeState);
+
   return (
-    <footer className='footer'>
+    <footer
+      className='footer'
+      style={{ backgroundColor: style.backgroundColor1 }}>
       <div className='footer-banner'>
         <img srcSet={Media.bannerImg.bannerFooter} alt='' />
       </div>

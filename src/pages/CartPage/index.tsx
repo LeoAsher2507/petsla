@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import CheckoutSteps from 'src/components/CheckoutSteps';
 import NoProduct from 'src/components/NoProduct';
-import PageWrap from 'src/components/PageWrap';
+import PageWrap from 'src/components/Navigation/PageWrap';
 import TopCartItem from 'src/components/TopCartItem';
 import {
   handleMinus,

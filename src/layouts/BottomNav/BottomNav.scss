@@ -1,0 +1,40 @@
+@import 'src/variable.scss';
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 toRem(-5) toRem(10) rgba(0, 0, 0, 0.1);
+
+
+  display: none;
+
+  .bottom-nav-list {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    .bottom-nav-item {
+      flex: 1;
+
+      .item-wrap {
+        padding: toRem(8);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        i {
+          font-size: toRem(18);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}

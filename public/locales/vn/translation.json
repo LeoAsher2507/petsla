@@ -2,6 +2,7 @@
   "title": {
     "homepage": "Trang chủ",
     "shop": "Cửa hàng",
+    "category": "Danh mục",
     "account": "Tài khoản",
     "cart": "Giỏ hàng",
     "login": "Đăng nhập",
@@ -17,7 +18,8 @@
     "quantity": "Số lượng",
     "totalPrice": "Thành tiền",
     "apply": "Áp dụng",
-    "page": "Trang"
+    "page": "Trang",
+    "contact": "Liên hệ"
   },
   "label": {
     "firstName": "Tên",

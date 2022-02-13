@@ -71,6 +71,10 @@ html {
 
 .app {
   min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding-bottom: toRem(67);
+  }
 }
 
 button {
