@@ -1,37 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import LoginModal from 'src/components/modals/LoginModal';
+import { openLoginModal } from 'src/services/auth/authSlice';
 import { RootState } from 'src/stores/rootReducer';
-import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
+import {
+  useAppDispatch,
+  useAppSelector
+} from 'src/utils/hook.ts/customReduxHook';
 
 const PrivateRoute = () => {
-  const token = useAppSelector((state: RootState) => state.authState.token);
-  const navigate = useNavigate();
-
-  const [showAuthModal, setShowAuthModal] = useState(false);
-
-  const handleCloseAuthModal = () => {
-    navigate(-1);
-    setShowAuthModal(false);
-  };
+  const { token } = useAppSelector((state: RootState) => state.authState);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!token) {
-      setShowAuthModal(true);
+      dispatch(openLoginModal());
       toast.warn('You have to login first!');
     }
-  }, [token]);
+  }, [token, dispatch]);
 
-  return (
-    <>
-      {token && <Outlet />}
-
-      <LoginModal
-        show={showAuthModal}
-        handleClose={handleCloseAuthModal}></LoginModal>
-    </>
-  );
+  return <>{token && <Outlet />}</>;
 };
 
 export default PrivateRoute;

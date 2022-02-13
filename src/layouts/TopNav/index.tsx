@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import StyledLink from 'src/components/customComponents/StyledLink';
-import ChangeLangPopOver from 'src/components/modals/ChangeLangPopOver';
-import LoginModal from 'src/components/modals/LoginModal';
+import ChangeLangPopOver from 'src/layouts/modals/ChangeLangPopOver';
+// import LoginModal from 'src/components/modals/LoginModal';
 import TopCart from 'src/layouts/TopCart';
-import { logoutMethod } from 'src/services/auth/authSlice';
+import { logoutMethod, openLoginModal } from 'src/services/auth/authSlice';
 import { toggleTheme } from 'src/services/theme/ThemeSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import {
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import './TopNav.scss';
@@ -27,15 +27,11 @@ const TopNav = () => {
   const { token } = authState;
   const { totalInCart } = productState;
 
-  const [showAuthModal, setShowAuthModal] = useState(false);
+  // const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCart, setShowCart] = useState(false);
 
   const handleCloseTopCart = () => {
     setShowCart(false);
-  };
-
-  const handleCloseAuthModal = () => {
-    setShowAuthModal(false);
   };
 
   const dispatch = useAppDispatch();
@@ -45,21 +41,13 @@ const TopNav = () => {
   };
 
   const handleLoginClick = () => {
-    setShowAuthModal(true);
+    // setShowLoginModal(true);
+    dispatch(openLoginModal());
   };
 
   const handleLogoutClick = () => {
     dispatch(logoutMethod());
   };
-
-  // const handleCloseConfirmLogout = () => {
-  //   setShowConfirmLogout(false);
-  // };
-
-  // const handleLogout = () => {
-  //   handleCloseConfirmLogout();
-  //   dispatch(logoutMethod());
-  // };
 
   return (
     <div className='top-nav' style={{ backgroundColor: style.backgroundColor }}>
@@ -191,8 +179,6 @@ const TopNav = () => {
       </Container>
 
       <TopCart showCart={showCart} handleCloseTopCart={handleCloseTopCart} />
-
-      <LoginModal show={showAuthModal} handleClose={handleCloseAuthModal} />
     </div>
   );
 };

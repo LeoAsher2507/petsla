@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import ModalFooter from 'src/components/modals/ModalFooter';
+import ModalFooter from 'src/layouts/modals/ModalFooter';
 
 interface IProps {
   show: boolean;

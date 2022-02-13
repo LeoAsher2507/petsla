@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from 'src/components/Loading';
-import LoginModal from 'src/components/modals/LoginModal';
 import PageWrap from 'src/components/PageWrap';
+import { openLoginModal } from 'src/services/auth/authSlice';
 import { getOneProductMethod } from 'src/services/product/productAction';
 import {
   addToCart,
-  resetCurrentProduct
+  resetCurrentProduct,
 } from 'src/services/product/productSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ERequestStatus } from 'src/types/commonType';
 import { ICartProduct } from 'src/types/productTypes';
 import {
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import './DetailProductPage.scss';
@@ -30,7 +30,6 @@ const DetailProductPage = () => {
 
   const { style } = useSelector((state: RootState) => state.themeState);
   const { token } = useSelector((state: RootState) => state.authState);
-  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // handle add to cart click
   function handleAddToCartClick() {
@@ -52,7 +51,7 @@ const DetailProductPage = () => {
       toast.success('Buy successfully!');
     } else {
       toast.warn('You have to login first!');
-      setShowLoginModal(true);
+      dispatch(openLoginModal());
     }
   };
 
@@ -117,10 +116,6 @@ const DetailProductPage = () => {
           </Col>
         </Row>
       </Container>
-      <LoginModal
-        show={showLoginModal}
-        handleClose={() => setShowLoginModal(false)}
-      />
     </PageWrap>
   );
 };

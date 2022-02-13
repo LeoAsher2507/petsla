@@ -1,24 +1,26 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Form, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import AuthFormModal from 'src/components/modals/AuthFormModal';
+import { useNavigate } from 'react-router-dom';
+import AuthFormModal from 'src/layouts/modals/AuthFormModal';
 import { loginMethod } from 'src/services/auth/authAction';
+import {
+  closeLoginModal,
+  openRegisterModal,
+} from 'src/services/auth/authSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ILoginRequestData } from 'src/types/authTypes';
+import { EModalType } from 'src/types/commonType';
 import {
   useAppDispatch,
   useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import { loginSchema } from 'src/utils/yup';
+import './LoginModal.scss';
 
-interface IProps {
-  show: boolean;
-  handleClose: () => void;
-}
-
-const LoginModal = ({ show, handleClose }: IProps) => {
+const LoginModal = () => {
   const defaultValues: ILoginRequestData = {
     username: '',
     password: '',
@@ -32,30 +34,40 @@ const LoginModal = ({ show, handleClose }: IProps) => {
   });
 
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state: RootState) => state.authState.token);
+  const navigate = useNavigate();
+  const { loginModalIsOpen } = useAppSelector(
+    (state: RootState) => state.authState
+  );
 
   const handleLogin = (data: ILoginRequestData) => {
     dispatch(loginMethod(data));
   };
 
-  useEffect(() => {
-    if (token) {
-      handleClose();
-      form.reset();
-    }
+  const handleClose = useCallback(() => {
+    dispatch(closeLoginModal());
+    form.reset();
+    navigate(-1);
+  }, [dispatch, navigate, form]);
 
-    return () => {
-      form.reset()
-    }
-  }, [token, handleClose, form]);
+  const handleChangeToRegister = () => {
+    form.reset();
+    dispatch(closeLoginModal());
+    dispatch(openRegisterModal());
+  };
 
   return (
-    <Modal className='login-modal' show={show} onHide={handleClose} centered>
+    <Modal
+      className='login-modal'
+      show={loginModalIsOpen}
+      onHide={handleClose}
+      centered>
       <AuthFormModal
         modalTitle={t('title.login')}
         form={form}
         handleLogin={handleLogin}
-        handleClose={handleClose}>
+        handleClose={handleClose}
+        handleChangeModal={handleChangeToRegister}
+        modalType={EModalType.LOGIN}>
         <Form.Group className='mt-3' controlId='username'>
           {/* <Form.Label> {t('label.username')} </Form.Label> */}
           <Form.Control

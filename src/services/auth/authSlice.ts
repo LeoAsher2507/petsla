@@ -17,11 +17,15 @@ import {
 interface IInitialState {
   token: string;
   requestStatus: ERequestStatus;
+  loginModalIsOpen: boolean;
+  registerModalIsOpen: boolean;
 }
 
 const initialState: IInitialState = {
   token: getLocalStorage('token'),
   requestStatus: ERequestStatus.FULFILLED,
+  loginModalIsOpen: false,
+  registerModalIsOpen: false,
 };
 
 const authSlice = createSlice({
@@ -32,6 +36,22 @@ const authSlice = createSlice({
       state.token = '';
       removeLocalStorage('token');
       toast.success('Logout successfully!');
+    },
+
+    openLoginModal: (state) => {
+      state.loginModalIsOpen = true;
+    },
+
+    closeLoginModal: (state) => {
+      state.loginModalIsOpen = false;
+    },
+
+    openRegisterModal: (state) => {
+      state.registerModalIsOpen = true;
+    },
+
+    closeRegisterModal: (state) => {
+      state.registerModalIsOpen = false;
     },
   },
   extraReducers: (builder) => {
@@ -63,4 +83,10 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 
-export const { logoutMethod } = authSlice.actions;
+export const {
+  logoutMethod,
+  openLoginModal,
+  openRegisterModal,
+  closeLoginModal,
+  closeRegisterModal,
+} = authSlice.actions;

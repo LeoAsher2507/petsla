@@ -20,6 +20,8 @@
     "page": "Page"
   },
   "label": {
+    "firstName": "First name",
+    "lastName": "Last name",
     "fullname": "Full name",
     "username": "Username",
     "password": "Password",

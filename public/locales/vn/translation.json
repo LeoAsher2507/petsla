@@ -20,6 +20,8 @@
     "page": "Trang"
   },
   "label": {
+    "firstName": "Tên",
+    "lastName": "Họ",
     "fullname": "Họ và tên",
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",

@@ -8,3 +8,8 @@ export enum ELanguage {
   ENGLISH = 'en',
   VIETNAMESE = 'vn',
 }
+
+export enum EModalType {
+  LOGIN,
+  REGISTER,
+}
