@@ -4,7 +4,7 @@ import { authApiMethod } from 'src/api/apiMethods';
 import {
   ILoginRequestData,
   ILoginResponseError,
-  IRegisterRequestData
+  IRegisterRequestData,
 } from 'src/types/authTypes';
 
 export const loginMethod = createAsyncThunk(

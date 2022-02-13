@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import LoginModal from 'src/components/modals/LoginModal';
+import { openLoginModal } from 'src/services/auth/authSlice';
+import { addToCart } from 'src/services/product/productSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ICartProduct, IProduct } from 'src/types/productTypes';
 import { ERouterPath } from 'src/types/route';
@@ -11,7 +12,6 @@ import {
   useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
-import { addToCart } from 'src/services/product/productSlice';
 import './ProductItem.scss';
 
 const ProductItem = (props: any) => {
@@ -24,7 +24,6 @@ const ProductItem = (props: any) => {
   const { token } = authState;
   const { style } = themeState;
 
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const dispatch = useAppDispatch();
 
   function handleAddToCartClick(product: IProduct) {
@@ -46,7 +45,7 @@ const ProductItem = (props: any) => {
       toast.success('Buy successfully!');
     } else {
       toast.warn('You have to login first!');
-      setShowLoginModal(true);
+      dispatch(openLoginModal());
     }
   };
 
@@ -98,10 +97,6 @@ const ProductItem = (props: any) => {
           </div>
         </div>
       </div>
-      <LoginModal
-        show={showLoginModal}
-        handleClose={() => setShowLoginModal(false)}
-      />
     </>
   );
 };

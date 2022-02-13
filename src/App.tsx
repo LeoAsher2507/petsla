@@ -15,6 +15,8 @@ import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 // import HomePage from 'src/pages/HomePage';
 import Loading from 'src/components/Loading';
 import ScrollToTopBtn from 'src/components/Navigation/ScrollToTopBtn';
+import RegisterModal from 'src/layouts/modals/RegisterModal';
+import LoginModal from 'src/layouts/modals/LoginModal';
 
 const ProductsPage = lazy(() => import('src/pages/ProductsPage'));
 const HomePage = lazy(() => import('src/pages/HomePage'));
@@ -24,7 +26,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTopBtn />
       <div
         className='app'
         style={{ backgroundColor: style.backgroundColor, color: style.color }}>
@@ -53,6 +54,9 @@ function App() {
           </Routes>
         </Suspense>
       </div>
+      <ScrollToTopBtn />
+      <LoginModal />
+      <RegisterModal />
     </BrowserRouter>
   );
 }
