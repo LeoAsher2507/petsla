@@ -75,13 +75,14 @@
           padding: toRem(3) toRem(8);
           border-radius: 3px;
           white-space: nowrap;
-          transform: translate(-50%, 10px);
+          transform: translate(-50%, 0) scaleY(0);
           opacity: 0;
           transition: 0.3s;
+          transform-origin: top;
         }
 
         i:hover ~ .top-nav-item__title {
-          transform: translate(-50%, 0);
+          transform: translate(-50%, 0) scaleY(1);
           opacity: 1;
         }
       }

@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Form, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import {
 } from 'src/services/auth/authSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { IRegisterFormData } from 'src/types/authTypes';
-import { EModalType, ERequestStatus } from 'src/types/commonType';
+import { EModalType } from 'src/types/commonType';
 import {
   useAppDispatch,
   useAppSelector,
@@ -29,7 +29,7 @@ const RegisterModal = () => {
     password: '',
   };
 
-  const { registerModalIsOpen, token } = useAppSelector(
+  const { registerModalIsOpen } = useAppSelector(
     (state: RootState) => state.authState
   );
   const dispatch = useAppDispatch();
@@ -37,20 +37,16 @@ const RegisterModal = () => {
 
   const { t } = useTranslation();
 
-  const { requestStatus } = useAppSelector(
-    (state: RootState) => state.authState
-  );
-
   const form = useForm({
     resolver: yupResolver(registerSchema),
     defaultValues,
   });
 
   const handleClose = useCallback(() => {
-    navigate(-1);
     form.reset();
+    navigate(-1);
     dispatch(closeRegisterModal());
-  }, [dispatch, navigate, form]);
+  }, [dispatch, form, navigate]);
 
   const handleChangeToLogin = () => {
     form.reset();
@@ -67,13 +63,6 @@ const RegisterModal = () => {
       })
     );
   };
-
-  useEffect(() => {
-    if (token && requestStatus !== ERequestStatus.PENDING) {
-      form.reset();
-      handleClose();
-    }
-  }, [token, form, requestStatus, handleClose]);
 
   return (
     <Modal

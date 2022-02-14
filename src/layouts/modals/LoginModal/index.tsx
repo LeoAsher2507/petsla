@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Form, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ import {
 } from 'src/services/auth/authSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ILoginRequestData } from 'src/types/authTypes';
-import { EModalType } from 'src/types/commonType';
+import { EModalType, ERequestStatus } from 'src/types/commonType';
 import {
   useAppDispatch,
   useAppSelector,
@@ -27,6 +27,9 @@ const LoginModal = () => {
   };
 
   const { t } = useTranslation();
+  const { token, requestStatus } = useAppSelector(
+    (state: RootState) => state.authState
+  );
 
   const form = useForm({
     resolver: yupResolver(loginSchema),
@@ -54,6 +57,13 @@ const LoginModal = () => {
     dispatch(closeLoginModal());
     dispatch(openRegisterModal());
   };
+
+  useEffect(() => {
+    if (token && requestStatus !== ERequestStatus.PENDING) {
+      form.reset();
+      dispatch(closeLoginModal());
+    }
+  }, [token, form, requestStatus, dispatch]);
 
   return (
     <Modal
