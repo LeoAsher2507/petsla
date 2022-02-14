@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Form, Pagination } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import './CustomPagination.scss';
@@ -16,7 +16,7 @@ const CustomPagination = ({
   setProductsPerPage,
   currentPage,
 }: IPaginationProps) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleChangePage = (page: number) => {
     window.scrollTo(0, 0);
@@ -60,8 +60,8 @@ const CustomPagination = ({
           {`${t('title.item')}/${t('title.page')}`}
         </Form.Label>
         <Form.Select
-          onChange={(event: any) =>
-            handleChangeProductsPerPage(event.target.value)
+          onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+            handleChangeProductsPerPage(Number(event.target.value))
           }
           id='productsPerPage'>
           <option value={12}>12</option>

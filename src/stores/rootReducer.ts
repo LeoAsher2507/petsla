@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import { authReducer } from 'src/services/auth/authSlice';
+import { modalReducer } from 'src/services/modal/modalSlice';
 import { productReducer } from 'src/services/product/productSlice';
 import { themeReducer } from 'src/services/theme/ThemeSlice';
 import { ERequestStatus } from 'src/types/commonType';
@@ -9,6 +10,7 @@ const reducer = combineReducers({
   themeState: themeReducer,
   authState: authReducer,
   productState: productReducer,
+  modalState: modalReducer,
 });
 
 export const store = configureStore({

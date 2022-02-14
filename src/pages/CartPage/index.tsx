@@ -1,5 +1,6 @@
 import React, { FormEvent } from 'react';
 import {
+  Button,
   Card,
   Col,
   Container,
@@ -9,9 +10,11 @@ import {
   Row,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import CheckoutSteps from 'src/components/CheckoutSteps';
-import NoProduct from 'src/components/NoProduct';
 import PageWrap from 'src/components/Navigation/PageWrap';
+import NoProduct from 'src/components/NoProduct';
 import TopCartItem from 'src/components/TopCartItem';
 import {
   handleMinus,
@@ -28,13 +31,16 @@ import {
 import './CartPage.scss';
 
 const CartPage = () => {
-  const { productState, themeState } = useAppSelector(
+  const { productState, themeState, authState } = useAppSelector(
     (state: RootState) => state
   );
 
   const { t } = useTranslation();
   const { cartList, totalInCart } = productState;
   const { isLightTheme, style } = themeState;
+  const { token } = authState;
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const handlePlusToCart = (id: number) => {
@@ -53,6 +59,17 @@ const CartPage = () => {
     event.preventDefault();
   };
 
+  const handleCheckoutClick = () => {
+    if (!token) {
+      toast.warning(t('message.warning.loginFirst'));
+    } else if (cartList.length <= 0) {
+      toast.warning(t('message.warning.noProductInCart'));
+    } else {
+      // dispatch(setCheckoutModalIsOpen(true));
+      navigate(ERouterPath.CUSTOMER_INFO);
+    }
+  };
+
   return (
     <PageWrap className='cart-page'>
       <Container className='cart-page-container'>
@@ -62,28 +79,33 @@ const CartPage = () => {
 
         <Row>
           <Col xs='12' md='7' lg='8'>
-            {cartList.length === 0 ? (
-              <NoProduct message={t('message.noProduct')} />
-            ) : (
-              <Card
-                style={{
-                  backgroundColor: style.backgroundColor,
-                  // color: style.color,
-                }}>
-                <div className='cart-page-list'>
-                  {cartList.map((product: ICartProduct) => (
-                    <TopCartItem
-                      key={product.id}
-                      isLightTheme={isLightTheme}
-                      product={product}
-                      handlePlusToCart={handlePlusToCart}
-                      handleMinusToCart={handleMinusToCart}
-                      handleRemoveFromCart={handleRemoveFromCart}
-                    />
-                  ))}
-                </div>
-              </Card>
-            )}
+            <Card>
+              <Card.Header className='cart-page-header'>Cart</Card.Header>
+              <Card.Body>
+                {cartList.length === 0 ? (
+                  <NoProduct message={t('message.warning.noProductInCart')} />
+                ) : (
+                  <Card
+                    style={{
+                      backgroundColor: style.backgroundColor,
+                      // color: style.color,
+                    }}>
+                    <div className='cart-page-list'>
+                      {cartList.map((product: ICartProduct) => (
+                        <TopCartItem
+                          key={product.id}
+                          isLightTheme={isLightTheme}
+                          product={product}
+                          handlePlusToCart={handlePlusToCart}
+                          handleMinusToCart={handleMinusToCart}
+                          handleRemoveFromCart={handleRemoveFromCart}
+                        />
+                      ))}
+                    </div>
+                  </Card>
+                )}
+              </Card.Body>
+            </Card>
           </Col>
           <Col xs='12' md='5' lg='4'>
             <Card
@@ -126,7 +148,13 @@ const CartPage = () => {
                           id='cart-page-voucher'
                         />
                       </FormGroup>
-                      <button className='cart-page-btn'>{`${t('title.apply')} ${t('label.voucher').toLowerCase()}`}</button>
+                      <Button
+                        className='cart-page-btn'
+                        style={{ color: style.color }}>
+                        {`${t('title.apply')} ${t(
+                          'label.voucher'
+                        ).toLowerCase()}`}
+                      </Button>
                     </Form>
 
                     <FloatingLabel label={t('label.note')}>
@@ -143,6 +171,13 @@ const CartPage = () => {
                     </FloatingLabel>
                   </div>
                 </div>
+
+                <Button
+                  className='cart-page-btn checkout-btn'
+                  style={{ color: style.color }}
+                  onClick={handleCheckoutClick}>
+                  {t('title.checkout')}
+                </Button>
               </div>
             </Card>
           </Col>

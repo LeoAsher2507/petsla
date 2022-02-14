@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import AuthFormModal from 'src/layouts/modals/AuthFormModal';
 import { loginMethod } from 'src/services/auth/authAction';
 import {
-  closeLoginModal,
-  openRegisterModal,
-} from 'src/services/auth/authSlice';
+  setLoginModalIsOpen,
+  setRegisterModalIsOpen,
+} from 'src/services/modal/modalSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ILoginRequestData } from 'src/types/authTypes';
 import { EModalType, ERequestStatus } from 'src/types/commonType';
@@ -39,7 +39,7 @@ const LoginModal = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loginModalIsOpen } = useAppSelector(
-    (state: RootState) => state.authState
+    (state: RootState) => state.modalState
   );
 
   const handleLogin = (data: ILoginRequestData) => {
@@ -47,21 +47,21 @@ const LoginModal = () => {
   };
 
   const handleClose = useCallback(() => {
-    dispatch(closeLoginModal());
+    dispatch(setLoginModalIsOpen(false));
     form.reset();
     navigate(-1);
   }, [dispatch, navigate, form]);
 
   const handleChangeToRegister = () => {
     form.reset();
-    dispatch(closeLoginModal());
-    dispatch(openRegisterModal());
+    dispatch(setLoginModalIsOpen(false));
+    dispatch(setRegisterModalIsOpen(true));
   };
 
   useEffect(() => {
     if (token && requestStatus !== ERequestStatus.PENDING) {
       form.reset();
-      dispatch(closeLoginModal());
+      dispatch(setLoginModalIsOpen(false));
     }
   }, [token, form, requestStatus, dispatch]);
 

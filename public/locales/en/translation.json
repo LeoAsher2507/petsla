@@ -35,13 +35,25 @@
     },
     "rememberPassword": "Remember me",
     "voucher": "Voucher",
-    "note": "Note"
+    "note": "Note",
+    "search": "Search"
   },
   "message": {
     "error": {
       "empty": "is required"
     },
-    "noProduct": "There's no item!"
+    "warning": {
+      "loginFirst": "You have to login first!",
+      "noProduct": "There's no item!",
+      "noProductInCart": "There's no item in cart!"
+    },
+    "success": {
+      "login": "Login successfully!",
+      "logout": "Logout successfully!",
+      "register": "Register successfully!",
+      "addToCart": "Add to cart successfully!",
+      "checkout": "Checkout successfully!"
+    }
   },
   "languageTitle": {
     "vn": "Vietnamese",

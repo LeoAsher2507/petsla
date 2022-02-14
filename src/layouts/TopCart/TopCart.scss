@@ -25,13 +25,14 @@
       border: 1px solid $primary-color;
       background-color: unset;
       transition: color 0.2s background-color 0.3s;
+      color: $black-text-color;
 
-      &:first-child {
+      &:last-child {
         background-color: $primary-color;
         color: $white-text-color;
       }
 
-      &:last-child:hover {
+      &:hover {
         background-color: $primary-color;
         color: $white-text-color;
       }

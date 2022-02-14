@@ -3,7 +3,8 @@ import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import StyledLink from 'src/components/customComponents/StyledLink';
 import ChangeLangPopOver from 'src/layouts/modals/ChangeLangPopOver';
-import { logoutMethod, openLoginModal } from 'src/services/auth/authSlice';
+import { logoutMethod } from 'src/services/auth/authSlice';
+import { setLoginModalIsOpen } from 'src/services/modal/modalSlice';
 import { toggleTheme } from 'src/services/theme/ThemeSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
@@ -12,7 +13,6 @@ import {
   useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
-
 import './HigherTopNav.scss';
 
 const HigherTopNav = () => {
@@ -31,7 +31,7 @@ const HigherTopNav = () => {
 
   const handleLoginClick = () => {
     // setShowLoginModal(true);
-    dispatch(openLoginModal());
+    dispatch(setLoginModalIsOpen(true));
   };
 
   const handleLogoutClick = () => {

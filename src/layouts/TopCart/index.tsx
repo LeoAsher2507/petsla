@@ -1,7 +1,8 @@
 import React from 'react';
-import { Offcanvas } from 'react-bootstrap';
+import { Button, Offcanvas } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import NoProduct from 'src/components/NoProduct';
 import TopCartItem from 'src/components/TopCartItem';
 import {
@@ -26,11 +27,13 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const { productState, themeState } = useAppSelector(
+  const { productState, themeState, authState } = useAppSelector(
     (state: RootState) => state
   );
   const { cartList, totalInCart } = productState;
   const { style, isLightTheme } = themeState;
+  const { token } = authState;
+
   const dispatch = useAppDispatch();
   const handlePlusToCart = (id: number) => {
     dispatch(handlePlus(id));
@@ -46,6 +49,16 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
 
   const handleViewCartClick = () => {
     navigate(ERouterPath.CART);
+  };
+
+  const handleCheckoutClick = () => {
+    if (!token) {
+      toast.warning(t('message.warning.loginFirst'));
+    } else if (cartList.length <= 0) {
+      toast.warning(t('message.warning.noProductInCart'));
+    } else {
+      navigate(ERouterPath.CUSTOMER_INFO);
+    }
   };
 
   return (
@@ -66,7 +79,7 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
 
       <Offcanvas.Body style={{ padding: 0 }}>
         {cartList.length === 0 ? (
-          <NoProduct message={t('message.noProduct')} />
+          <NoProduct message={t('message.warning.noProductInCart')} />
         ) : (
           cartList.map((product) => (
             <TopCartItem
@@ -82,13 +95,12 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
       </Offcanvas.Body>
 
       <div className='top-cart-footer'>
-        <button className='top-cart-btn'>
+        <Button className='top-cart-btn' onClick={handleCheckoutClick}>
           {`${t('title.checkout')} (${totalInCart.price.toLocaleString()}đ)`}
-        </button>
-        <button className='top-cart-btn' onClick={handleViewCartClick}>
-          {/* View cart */}
+        </Button>
+        <Button className='top-cart-btn' onClick={handleViewCartClick}>
           {`${t('title.view')} ${t('title.cart')}`}
-        </button>
+        </Button>
       </div>
     </Offcanvas>
   );

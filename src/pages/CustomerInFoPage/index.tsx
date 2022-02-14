@@ -1,22 +1,39 @@
-import React from 'react';
-import {
-  Accordion,
-  Card,
-  Col,
-  Container,
-  FloatingLabel,
-  Form,
-  Row,
-} from 'react-bootstrap';
+import { t } from 'i18next';
+import React, { ChangeEvent, useState } from 'react';
+import { useEffect } from 'react';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import CheckoutSteps from 'src/components/CheckoutSteps';
 import PageWrap from 'src/components/Navigation/PageWrap';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
-
+import './CustomerInFoPage.scss';
 const CustomerInFoPage = () => {
-  const { themeState } = useAppSelector((state: RootState) => state);
+  const { themeState, productState, authState } = useAppSelector(
+    (state: RootState) => state
+  );
   const { style } = themeState;
+  const { totalInCart } = productState;
+  const { currentUser } = authState;
+
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(ERouterPath.CART);
+  };
+
+  const handleNext = () => {
+    navigate(ERouterPath.REVIEW);
+  };
+
+  useEffect(() => {
+    setName(currentUser?.name || '');
+  }, [currentUser]);
 
   return (
     <PageWrap className='cart-page'>
@@ -27,42 +44,48 @@ const CustomerInFoPage = () => {
 
         <Row>
           <Col xs='12' md='7' lg='8'>
-            <Accordion defaultActiveKey='0'>
-              <Accordion.Item eventKey='0'>
-                <Accordion.Header>Mua hàng</Accordion.Header>
-                <Accordion.Body>
-                  <Form>
-                    <Form.Group className='mb-3'>
-                      <Form.Label>Full name</Form.Label>
-                      <Form.Control type='text' placeholder='Full name' />
-                    </Form.Group>
+            <Card>
+              <Card.Header className='cart-page-header'>
+                Thông tin giao hàng
+              </Card.Header>
 
-                    <Form.Group>
-                      <Form.Label>Phone number</Form.Label>
-                      <Form.Control type='text' placeholder='Phone number' />
-                    </Form.Group>
+              <Card.Body>
+                <Form>
+                  <Form.Group className='my-3'>
+                    <Form.Control
+                      type='text'
+                      placeholder='Full name'
+                      value={name}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setName(e.target.value)
+                      }
+                    />
+                  </Form.Group>
 
-                    <Form.Group>
-                      <Form.Label>Address</Form.Label>
-                      <Form.Control type='text' placeholder='Address' />
-                    </Form.Group>
-                  </Form>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey='1'>
-                <Accordion.Header>Tặng quà</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
+                  <Form.Group className='my-3'>
+                    <Form.Control
+                      type='text'
+                      placeholder='Phone number'
+                      value={phoneNumber}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setPhoneNumber(e.target.value)
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group className='my-3'>
+                    <Form.Control
+                      type='text'
+                      placeholder='Address'
+                      value={address}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setAddress(e.target.value)
+                      }
+                    />
+                  </Form.Group>
+                </Form>
+              </Card.Body>
+            </Card>
           </Col>
           <Col xs='12' md='5' lg='4'>
             <Card
@@ -71,21 +94,50 @@ const CustomerInFoPage = () => {
                 // color: style.color,
               }}>
               <div className='cart-page-content'>
-                <div className='body'>
-                  <div className='voucher-wrap'>
-                    <FloatingLabel label='Brief Note'>
-                      <Form.Control
-                        style={{
-                          backgroundColor: style.backgroundColor1,
-                          color: style.color,
-                        }}
-                        className='cart-page-note'
-                        as='textarea'
-                        type='text'
-                        placeholder='Brief Note'
-                      />
-                    </FloatingLabel>
+                <div className='header'>
+                  <div className='header-wrap'>
+                    <span className='total-title'>{`${t(
+                      'title.quantity'
+                    )}:`}</span>
+                    <span className='total-value'>
+                      {`${totalInCart.quantity} ${t('title.item')}`}
+                    </span>
                   </div>
+
+                  <div className='header-wrap'>
+                    <span className='total-title'>{`${t(
+                      'title.totalPrice'
+                    )}:`}</span>
+                    <span className='total-value'>
+                      {`${totalInCart.price.toLocaleString()}đ`}
+                    </span>
+                  </div>
+                </div>
+
+                <div className='shop-note-wrap'>
+                  <span className='note-title'>Chú ý: </span>
+
+                  <span className='note-content'>
+                    Hiện tại chúng tôi chỉ hỗ trợ thanh toán trực tiếp khi nhận
+                    hàng.
+                  </span>
+                </div>
+
+                <div className='cart-page-btn-wrap'>
+                  <Row>
+                    <Col>
+                      <Button className='cart-page-btn' onClick={handleBack}>
+                        Back
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button
+                        className='cart-page-btn checkout-btn'
+                        onClick={handleNext}>
+                        Next
+                      </Button>
+                    </Col>
+                  </Row>
                 </div>
               </div>
             </Card>

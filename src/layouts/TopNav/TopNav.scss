@@ -38,12 +38,17 @@
       flex: 0.9;
       position: relative;
 
+      @media (min-width: 992px) {
+        flex: 0.7;
+      }
+
       .search-btn {
         // position: absolute;
         border-top-left-radius: toRem(50);
         border-bottom-left-radius: toRem(50);
         background-color: $primary-color;
         border-color: $primary-color;
+        white-space: nowrap;
       }
 
       .input-search {

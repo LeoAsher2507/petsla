@@ -33,3 +33,11 @@ export interface ILoginResponseData {
 export interface ILoginResponseError {
   detail: string;
 }
+
+export interface IUser {
+  id: number;
+  name: string;
+  isAdmin: boolean;
+  email: string;
+  username: string;
+}

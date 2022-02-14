@@ -7,7 +7,6 @@
   right: 0;
   box-shadow: 0 toRem(-5) toRem(10) rgba(0, 0, 0, 0.1);
 
-
   display: none;
 
   .bottom-nav-list {
@@ -26,6 +25,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
 
         i {
           font-size: toRem(18);

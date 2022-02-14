@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
+import { t } from 'i18next';
 import { toast } from 'react-toastify';
 import { loginMethod } from 'src/services/auth/authAction';
 import {
   ILoginRequestData,
   ILoginResponseData,
   ILoginResponseError,
+  IUser,
 } from 'src/types/authTypes';
 import { ERequestStatus } from 'src/types/commonType';
 import {
@@ -17,15 +19,13 @@ import {
 interface IInitialState {
   token: string;
   requestStatus: ERequestStatus;
-  loginModalIsOpen: boolean;
-  registerModalIsOpen: boolean;
+  currentUser: IUser | null;
 }
 
 const initialState: IInitialState = {
   token: getLocalStorage('token'),
   requestStatus: ERequestStatus.FULFILLED,
-  loginModalIsOpen: false,
-  registerModalIsOpen: false,
+  currentUser: getLocalStorage('currentUser'),
 };
 
 const authSlice = createSlice({
@@ -35,23 +35,7 @@ const authSlice = createSlice({
     logoutMethod: (state) => {
       state.token = '';
       removeLocalStorage('token');
-      toast.success('Logout successfully!');
-    },
-
-    openLoginModal: (state) => {
-      state.loginModalIsOpen = true;
-    },
-
-    closeLoginModal: (state) => {
-      state.loginModalIsOpen = false;
-    },
-
-    openRegisterModal: (state) => {
-      state.registerModalIsOpen = true;
-    },
-
-    closeRegisterModal: (state) => {
-      state.registerModalIsOpen = false;
+      toast.success(t('message.success.logout'));
     },
   },
   extraReducers: (builder) => {
@@ -68,7 +52,15 @@ const authSlice = createSlice({
         >;
         state.token = payload.data.token;
         setLocalStorage('token', state.token);
-        toast.success('Login successfully!');
+        state.currentUser = {
+          id: payload.data.id,
+          name: payload.data.name,
+          isAdmin: payload.data.isAdmin,
+          email: payload.data.email,
+          username: payload.data.username,
+        };
+        setLocalStorage('currentUser', state.currentUser);
+        toast.success(t('message.success.login'));
       })
       .addCase(loginMethod.rejected, (state, action) => {
         state.requestStatus = ERequestStatus.REJECTED;
@@ -83,10 +75,4 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 
-export const {
-  logoutMethod,
-  openLoginModal,
-  openRegisterModal,
-  closeLoginModal,
-  closeRegisterModal,
-} = authSlice.actions;
+export const { logoutMethod } = authSlice.actions;

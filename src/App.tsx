@@ -3,15 +3,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import HomePage from 'src/pages/HomePage';
 import Loading from 'src/components/Loading';
 import PrivateRoute from 'src/components/Navigation/PrivateRoute';
-import ScrollToTopBtn from 'src/components/Navigation/ScrollToTopBtn';
-import LoginModal from 'src/layouts/modals/LoginModal';
-import RegisterModal from 'src/layouts/modals/RegisterModal';
+import AllModal from 'src/layouts/modals';
 import AccountPage from 'src/pages/AccountPage';
 import CartPage from 'src/pages/CartPage';
 import ContactPage from 'src/pages/ContactPage';
 import CustomerInFoPage from 'src/pages/CustomerInFoPage';
 import DetailProductPage from 'src/pages/DetailProductPage';
-import LoginPage from 'src/pages/LoginPage';
 import PaymentPage from 'src/pages/PaymentPage';
 import ReviewPage from 'src/pages/ReviewPage';
 // import ProductsPage from 'src/pages/ProductsPage';
@@ -56,9 +53,7 @@ function App() {
           </Routes>
         </Suspense>
       </div>
-      <ScrollToTopBtn />
-      <LoginModal />
-      <RegisterModal />
+      <AllModal />
     </BrowserRouter>
   );
 }

@@ -32,7 +32,7 @@ const TopNav = () => {
 
   return (
     <div className='top-nav' style={{ backgroundColor: style.backgroundColor }}>
-      <Container className="top-nav-container">
+      <Container className='top-nav-container'>
         <div className='top-nav__branch d-none d-md-flex '>
           <StyledLink to={ERouterPath.HOME}>
             <img src={Media.fullLogo} alt='' />
@@ -43,7 +43,8 @@ const TopNav = () => {
           <Form onSubmit={handleSearch}>
             <Form.Group className='d-flex'>
               <Button className='search-btn' type='submit'>
-                Search
+                {/* <i className='bi bi-search'></i> */}
+                {t('label.search')}
               </Button>
               <Form.Control
                 style={{
@@ -57,7 +58,7 @@ const TopNav = () => {
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   setSearchTerm(event.target.value)
                 }
-                placeholder='Anything here is better than your ex'></Form.Control>
+                placeholder='Everything here is better than your ex'></Form.Control>
             </Form.Group>
           </Form>
         </div>

@@ -5,6 +5,12 @@
     margin-top: toRem(20);
     margin-bottom: toRem(30);
 
+    .cart-page-header {
+      text-align: center;
+      font-weight: 600;
+      font-size: toRem(18);
+    }
+
     .cart-page-content {
       padding: toRem(16) toRem(20) toRem(20);
 
@@ -39,10 +45,16 @@
       border: 1px solid $primary-color;
       background-color: unset;
       transition: color 0.2s background-color 0.3s;
+      color: $black-text-color;
+
+      &.checkout-btn {
+        background-color: $primary-color;
+        color: $white-text-color !important;
+      }
 
       &:hover {
         background-color: $primary-color;
-        color: $white-text-color;
+        color: $white-text-color !important;
       }
     }
   }

@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -5,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from 'src/components/Loading';
 import PageWrap from 'src/components/Navigation/PageWrap';
-import { openLoginModal } from 'src/services/auth/authSlice';
+import { setLoginModalIsOpen } from 'src/services/modal/modalSlice';
 import { getOneProductMethod } from 'src/services/product/productAction';
 import {
   addToCart,
@@ -43,15 +44,15 @@ const DetailProductPage = () => {
       quantity: 1,
     };
     dispatch(addToCart(newCartProduct));
-    toast.success('Thêm vào giỏ hàng thành công!');
+    toast.success(t('message.success.addToCart'));
   }
 
   const handleBuyNowOnClick = () => {
     if (token) {
-      toast.success('Buy successfully!');
+      toast.success(t('message.success.checkout'));
     } else {
-      toast.warn('You have to login first!');
-      dispatch(openLoginModal());
+      toast.warn(t('message.warning.loginFirst'));
+      dispatch(setLoginModalIsOpen(true));
     }
   };
 
