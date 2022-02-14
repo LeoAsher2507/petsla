@@ -71,23 +71,20 @@
           padding: toRem(3) toRem(8);
           border-radius: 3px;
           white-space: nowrap;
-          transform: translate(-50%, 0px);
+          transform: translate(-50%, 0px) scaleY(0);
           opacity: 0;
-          transition: 0.4s;
+          transition: 0.3s;
+          transform-origin: top;
         }
 
         & > *:hover ~ .higher-top-nav-item__title {
-          transform: translate(-50%, -5px);
+          transform: translate(-50%, -5px) scaleY(1);
           opacity: 1;
         }
 
         &:first-child {
-          .higher-top-nav-item__title {
-            transform: translate(-50%, 9px);
-          }
-
           & > *:hover ~ .higher-top-nav-item__title {
-            transform: translate(-50%, 4px);
+            transform: translate(-50%, 5px) scaleY(1);
             opacity: 1;
           }
         }

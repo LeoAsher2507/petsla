@@ -32,7 +32,7 @@ function App() {
         style={{ backgroundColor: style.backgroundColor1, color: style.color }}>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path={ERouterPath.LOGIN} element={<LoginPage />} />
+            {/* <Route path={ERouterPath.LOGIN} element={<LoginPage />} /> */}
 
             <Route path={ERouterPath.ACCOUNT} element={<PrivateRoute />}>
               <Route path={ERouterPath.ACCOUNT} element={<AccountPage />} />
@@ -40,7 +40,6 @@ function App() {
 
             <Route path={ERouterPath.SHOP} element={<ProductsPage />} />
 
-            <Route path={ERouterPath.HOME} element={<HomePage />} />
             <Route path={ERouterPath.CART} element={<CartPage />} />
             <Route path={ERouterPath.CONTACT} element={<ContactPage />} />
             <Route
@@ -53,6 +52,7 @@ function App() {
               path={`${ERouterPath.DETAIL_PRODUCT}-:id`}
               element={<DetailProductPage />}
             />
+            <Route path={ERouterPath.HOME} element={<HomePage />} />
           </Routes>
         </Suspense>
       </div>
