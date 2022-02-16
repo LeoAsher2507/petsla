@@ -27,6 +27,8 @@
     "fullname": "Full name",
     "username": "Username",
     "password": "Password",
+    "phoneNumber": "Phone number",
+    "address": "Address",
     "gender": {
       "title": "Gender",
       "male": "Male",

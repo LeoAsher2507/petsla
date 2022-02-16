@@ -1,13 +1,24 @@
 export enum ERouterPath {
   LOGIN = '/login',
   REGISTER = '/register',
+
+  // nav bar
   SHOP = '/shop',
-  CART = '/cart',
-  ACCOUNT = '/account',
   HOME = '/',
   CONTACT = '/contact',
-  DETAIL_PRODUCT = `/detail-product`,
+  ACCOUNT = '/account',
+
+  // personal detail. Route: ERouterPath.ACCOUNT/pathName
+  PROFILE = 'profile',
+  WISH_LIST = 'wish_list',
+  ORDERS = 'orders',
+  DETAIL_ORDER = 'order',
+
+  // checkout steps
+  CART = '/cart',
   CUSTOMER_INFO = '/customer-info',
   PAYMENT = '/payment',
   REVIEW = '/review',
+
+  DETAIL_PRODUCT = `/product`,
 }

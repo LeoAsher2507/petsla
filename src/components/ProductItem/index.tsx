@@ -1,6 +1,6 @@
-import { t } from 'i18next';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { setLoginModalIsOpen } from 'src/services/modal/modalSlice';
@@ -20,6 +20,8 @@ const ProductItem = (props: any) => {
   const productUrlImg = `url('${
     process.env.REACT_APP_BASE_URL + product.images || Media.errorLoading
   }')`;
+
+  const { t } = useTranslation();
 
   const { authState, themeState } = useAppSelector((state: RootState) => state);
   const { token } = authState;

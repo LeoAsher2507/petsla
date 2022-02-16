@@ -4,6 +4,7 @@ import { authReducer } from 'src/services/auth/authSlice';
 import { modalReducer } from 'src/services/modal/modalSlice';
 import { productReducer } from 'src/services/product/productSlice';
 import { themeReducer } from 'src/services/theme/ThemeSlice';
+import { userReducer } from 'src/services/user/userSlice';
 import { ERequestStatus } from 'src/types/commonType';
 
 const reducer = combineReducers({
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   authState: authReducer,
   productState: productReducer,
   modalState: modalReducer,
+  userState: userReducer,
 });
 
 export const store = configureStore({

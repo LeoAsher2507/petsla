@@ -17,23 +17,11 @@ export const loginSchema = yup.object().shape({
 });
 
 export const registerSchema = yup.object().shape({
-  firstName: yup
-    .string()
-    // .min(8, 'First name is required!')
-    // .max(20, 'First name is required!')
-    .required('First name is required!'),
+  firstName: yup.string().required('First name is required!'),
 
-  lastName: yup
-    .string()
-    // .min(8, 'Last name must be between 8-20 characters!')
-    // .max(20, 'Last name must be between 8-20 characters!')
-    .required('Last name is required!'),
+  lastName: yup.string().required('Last name is required!'),
 
-  email: yup
-    .string()
-    // .min(8, 'Email must be between 8-20 characters!')
-    // .max(20, 'Email must be between 8-20 characters!')
-    .required('Email is required!'),
+  email: yup.string().required('Email is required!'),
 
   username: yup
     .string()
@@ -46,6 +34,33 @@ export const registerSchema = yup.object().shape({
     .min(8, 'Password must be between 8-20 characters!')
     .max(20, 'Password must be between 8-20 characters!')
     .required('Password is required!'),
+});
+
+export const userInfoSchema = yup.object().shape({
+  firstName: yup.string().required('First name is required!'),
+  lastName: yup.string().required('Last name is required!'),
+  name: yup.string().required('Last name is required!'),
+  gender: yup.string(),
+  username: yup
+    .string()
+    .min(8, 'Username must be between 8-20 characters!')
+    .max(20, 'Username must be between 8-20 characters!')
+    .required('Username is required!'),
+  email: yup.string().required('Email is required!'),
+  phoneNumber: yup.string(),
+});
+
+export const customerInfoPageSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required('Full name is required!')
+    .matches(/^\w+[\s*\w*]+$/, "Full name isn't valid!"),
+  phoneNumber: yup
+    .string()
+    .required('Phone number is required!')
+    .matches(/^[0-9]+$/, 'Phone number must be number!'),
+  address: yup.string().required('Address is required!'),
+  note: yup.string(),
 });
 
 // .matches(

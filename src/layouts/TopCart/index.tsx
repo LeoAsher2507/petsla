@@ -95,10 +95,10 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
       </Offcanvas.Body>
 
       <div className='top-cart-footer'>
-        <Button className='top-cart-btn' onClick={handleCheckoutClick}>
+        <Button className='top-cart-btn custom-btn' onClick={handleCheckoutClick}>
           {`${t('title.checkout')} (${totalInCart.price.toLocaleString()}đ)`}
         </Button>
-        <Button className='top-cart-btn' onClick={handleViewCartClick}>
+        <Button className='top-cart-btn custom-btn bg-fill' onClick={handleViewCartClick}>
           {`${t('title.view')} ${t('title.cart')}`}
         </Button>
       </div>

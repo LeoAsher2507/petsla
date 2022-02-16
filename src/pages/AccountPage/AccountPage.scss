@@ -1,0 +1,12 @@
+@import 'src/variable.scss';
+
+.account-page {
+  .account-page-container {
+    margin-top: toRem(24);
+    margin-bottom: toRem(24);
+
+    .dashboard-col {
+      padding: toRem(20) toRem(30);
+    }
+  }
+}

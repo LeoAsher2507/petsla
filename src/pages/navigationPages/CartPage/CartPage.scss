@@ -1,0 +1,42 @@
+@import 'src/variable.scss';
+
+.cart-page {
+  .cart-page-container {
+    margin-top: toRem(20);
+    margin-bottom: toRem(30);
+
+    .cart-page-header {
+      text-align: center;
+      font-weight: 600;
+      font-size: toRem(18);
+    }
+
+    .cart-page-content {
+      padding: toRem(16) toRem(20) toRem(20);
+
+      .header {
+        margin-bottom: toRem(24);
+
+        .header-wrap {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .total-value {
+            font-weight: 600;
+            color: $primary-color;
+          }
+        }
+      }
+
+      .cart-page-note {
+        min-height: toRem(120);
+      }
+    }
+
+    .cart-page-btn {
+      width: 100%;
+      margin: toRem(16) 0 0;
+    }
+  }
+}

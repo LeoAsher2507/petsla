@@ -23,14 +23,14 @@
     margin: 0 0 toRem(24);
 
     .btn-item {
-      &:first-child {
-        background-color: $primary-color;
-        border-color: $primary-color;
+      &.google {
+        background-color: var(--bs-red);
+        border-color: var(--bs-red);
       }
 
-      &.google {
-        background-color: var(--toastify-color-error);
-        border-color: var(--toastify-color-error);
+      &.facebook {
+        background-color: var(--bs-blue);
+        border-color: var(--bs-blue);
       }
     }
 
@@ -58,13 +58,13 @@
     margin: toRem(24);
 
     .change-modal-item {
-      cursor: pointer; 
-      opacity: .6;
-      transition: .2s;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: 0.2s;
       margin-top: toRem(8);
 
       &:hover {
-        opacity: .9;
+        opacity: 0.9;
       }
     }
   }

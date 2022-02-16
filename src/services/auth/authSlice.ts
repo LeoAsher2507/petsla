@@ -7,7 +7,6 @@ import {
   ILoginRequestData,
   ILoginResponseData,
   ILoginResponseError,
-  IUser,
 } from 'src/types/authTypes';
 import { ERequestStatus } from 'src/types/commonType';
 import {
@@ -19,13 +18,11 @@ import {
 interface IInitialState {
   token: string;
   requestStatus: ERequestStatus;
-  currentUser: IUser | null;
 }
 
 const initialState: IInitialState = {
   token: getLocalStorage('token'),
   requestStatus: ERequestStatus.FULFILLED,
-  currentUser: getLocalStorage('currentUser'),
 };
 
 const authSlice = createSlice({
@@ -35,6 +32,7 @@ const authSlice = createSlice({
     logoutMethod: (state) => {
       state.token = '';
       removeLocalStorage('token');
+      removeLocalStorage('currentOrderInfo');
       toast.success(t('message.success.logout'));
     },
   },
@@ -52,14 +50,6 @@ const authSlice = createSlice({
         >;
         state.token = payload.data.token;
         setLocalStorage('token', state.token);
-        state.currentUser = {
-          id: payload.data.id,
-          name: payload.data.name,
-          isAdmin: payload.data.isAdmin,
-          email: payload.data.email,
-          username: payload.data.username,
-        };
-        setLocalStorage('currentUser', state.currentUser);
         toast.success(t('message.success.login'));
       })
       .addCase(loginMethod.rejected, (state, action) => {

@@ -35,9 +35,31 @@ export interface ILoginResponseError {
 }
 
 export interface IUser {
-  id: number;
-  name: string;
-  isAdmin: boolean;
-  email: string;
+  firstName: string;
+  lastName: string;
   username: string;
+  name: string;
+  email: string;
+
+  id?: number;
+  gender?: EGender;
+  isAdmin?: boolean;
+  address?: string;
+  phoneNumber?: string;
+}
+
+export interface IOrderInfo {
+  id?: number;
+  name: string;
+
+  address: string;
+  phoneNumber: string;
+  note?: string;
+}
+
+export enum EGender {
+  MALE,
+  FEMALE,
+  OTHER,
+  UNKNOWN,
 }

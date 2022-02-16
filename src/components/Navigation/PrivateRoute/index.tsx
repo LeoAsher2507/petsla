@@ -6,7 +6,7 @@ import { setLoginModalIsOpen } from 'src/services/modal/modalSlice';
 import { RootState } from 'src/stores/rootReducer';
 import {
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from 'src/utils/hook.ts/customReduxHook';
 
 const PrivateRoute = () => {
@@ -21,7 +21,7 @@ const PrivateRoute = () => {
     }
   }, [token, dispatch, t]);
 
-  return <>{token && <Outlet />}</>;
+  return <>{!!token && <Outlet />}</>;
 };
 
 export default PrivateRoute;

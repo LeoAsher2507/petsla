@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap');
 @import '~bootstrap/scss/bootstrap';
-@import './variable';
+@import 'src/variable.scss';
 
 html {
   // overflow-y: overlay;
@@ -77,8 +77,21 @@ html {
   }
 }
 
-button {
+.btn.custom-btn {
   user-select: none;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  transition: color 0.2s background-color 0.3s;
+  background-color: unset;
+
+  padding: toRem(6) toRem(8);
+
+  &:hover,
+  &.bg-fill {
+    background-color: $primary-color;
+    // border-color: $primary-color;
+    color: $white-text-color;
+  }
 }
 
 .Toastify {

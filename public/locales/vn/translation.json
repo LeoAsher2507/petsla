@@ -27,6 +27,8 @@
     "fullname": "Họ và tên",
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
+    "phoneNumber": "Số điện thoại",
+    "address": "Địa chỉ",
     "gender": {
       "title": "Giới tính",
       "male": "Nam",
