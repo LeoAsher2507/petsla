@@ -137,6 +137,10 @@ const productSlice = createSlice({
         state.requestStatus = ERequestStatus.FULFILLED;
       })
 
+      .addCase(getAllProductMethod.rejected, (state, action) => {
+        state.requestStatus = ERequestStatus.REJECTED;
+      })
+
       .addCase(getOneProductMethod.pending, (state, action) => {
         state.requestStatus = ERequestStatus.PENDING;
       })

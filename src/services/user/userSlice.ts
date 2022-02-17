@@ -42,9 +42,18 @@ const userSlice = createSlice({
 
     setCurrentUser: (state, action: PayloadAction<IUser | null>) => {
       state.currentUser = action.payload;
+      const newCurrentOrderInfo: IOrderInfo = {
+        id: state.currentUser?.id,
+        name: state.currentUser?.name || '',
+        address: state.currentUser?.address || '',
+        phoneNumber: state.currentUser?.phoneNumber || '',
+        note: state.currentOrderInfo?.note,
+      };
+
       action.payload === null
         ? removeLocalStorage('currentUser')
         : setLocalStorage('currentUser', action.payload);
+      setLocalStorage('currentOrderInfo', newCurrentOrderInfo);
     },
   },
   extraReducers: (builder) => {
@@ -65,6 +74,9 @@ const userSlice = createSlice({
         };
         setLocalStorage('currentUser', action.payload);
         state.requestStatus = ERequestStatus.FULFILLED;
+      })
+      .addCase(getUserInfoMethod.rejected, (state) => {
+        state.requestStatus = ERequestStatus.REJECTED;
       });
   },
 });

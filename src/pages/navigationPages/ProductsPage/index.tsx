@@ -8,7 +8,7 @@ import { RootState } from 'src/stores/rootReducer';
 import { ERequestStatus } from 'src/types/commonType';
 import {
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 
 const ProductsPage = () => {

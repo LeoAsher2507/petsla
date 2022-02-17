@@ -5,6 +5,8 @@ import errorLoading from 'src/assets/img/errorLoading.gif';
 import enFlag from 'src/assets/img/langFlag/enFlag.png';
 import vnFlag from 'src/assets/img/langFlag/vnFlag.png';
 import logo from 'src/assets/img/petsla.png';
+import noUser from 'src/assets/img/noUser.jpg';
+import cuteCat from 'src/assets/img/cuteCat.jpg';
 
 const Media = {
   bannerImg,
@@ -14,6 +16,8 @@ const Media = {
   enFlag,
   vnFlag,
   logo,
+  noUser,
+  cuteCat,
 };
 
 export default Media;

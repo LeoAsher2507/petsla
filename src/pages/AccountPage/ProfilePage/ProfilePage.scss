@@ -14,9 +14,18 @@
           display: flex;
           align-items: center;
 
-          img {
+          .user-ava {
             max-width: toRem(60);
+            min-width: toRem(60);
             width: toRem(60);
+            height: toRem(60);
+            border-radius: 50%;
+            overflow: hidden;
+
+            img {
+              height: 100%;
+              width: 100%;
+            }
           }
 
           .name-wrap {
@@ -82,6 +91,7 @@
 
         label {
           width: toRem(150);
+          max-width: toRem(150);
           margin: 0;
         }
       }

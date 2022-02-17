@@ -1,6 +1,8 @@
 import React from 'react';
 import { Breadcrumb } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
@@ -15,6 +17,14 @@ const CheckoutSteps = ({ pathname }: ICheckoutStepsProps) => {
     (state: RootState) => state.productState
   );
 
+  const { t } = useTranslation();
+
+  const handleChangeToCustomerInfoClick = () => {
+    if (totalInCart.quantity <= 0) {
+      toast.warning(t('message.warning.noProductInCart'));
+    }
+  };
+
   return (
     <Breadcrumb className='checkout-steps'>
       <Breadcrumb.Item
@@ -28,6 +38,7 @@ const CheckoutSteps = ({ pathname }: ICheckoutStepsProps) => {
         className='checkout-step'
         active={pathname === ERouterPath.CUSTOMER_INFO}
         linkAs={Link}
+        onClick={handleChangeToCustomerInfoClick}
         linkProps={{
           to: totalInCart.quantity <= 0 ? '' : ERouterPath.CUSTOMER_INFO,
         }}>

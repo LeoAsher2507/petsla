@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 import { userApiMethod } from 'src/api/apiMethods';
+import { ILoginResponseError } from 'src/types/authTypes';
 import { IRequestedOrder } from 'src/types/productTypes';
 
 export const getUserInfoMethod = createAsyncThunk(
@@ -9,8 +11,9 @@ export const getUserInfoMethod = createAsyncThunk(
       const response = await userApiMethod.getUserInfo();
       console.log('get profile', response);
       return response.data;
-    } catch (error) {
-      console.log('error::', error);
+    } catch (err) {
+      const error = err as AxiosError<ILoginResponseError>;
+      return thunkApi.rejectWithValue(error.response);
     }
   }
 );
@@ -22,8 +25,9 @@ export const addOrderMethod = createAsyncThunk(
       const response = await userApiMethod.addOrder(order);
       console.log('add order', response);
       return response.data;
-    } catch (error) {
-      console.log('error::', error);
+    } catch (err) {
+      const error = err as AxiosError<ILoginResponseError>;
+      return thunkApi.rejectWithValue(error.response);
     }
   }
 );
@@ -35,8 +39,9 @@ export const getAllOrderMethod = createAsyncThunk(
       const response = await userApiMethod.getAllOrder();
       console.log('get all order', response.data);
       return response.data;
-    } catch (error) {
-      console.log('error: ', error);
+    } catch (err) {
+      const error = err as AxiosError<ILoginResponseError>;
+      return thunkApi.rejectWithValue(error.response);
     }
   }
 );
@@ -48,8 +53,9 @@ export const getOneOrderMethod = createAsyncThunk(
       const response = await userApiMethod.getOneOrder(id);
       console.log('get 1 order', response.data);
       return response.data;
-    } catch (error) {
-      console.log('error: ', error);
+    } catch (err) {
+      const error = err as AxiosError<ILoginResponseError>;
+      return thunkApi.rejectWithValue(error.response);
     }
   }
 );

@@ -7,7 +7,7 @@ import {
   Form,
   Row
 } from 'react-bootstrap';
-import CheckoutSteps from 'src/components/CheckoutSteps';
+import CheckoutSteps from 'src/pages/checkoutStepPages/components/CheckoutSteps';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';

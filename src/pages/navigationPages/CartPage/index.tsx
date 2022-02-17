@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import CheckoutSteps from 'src/components/CheckoutSteps';
+import CheckoutSteps from 'src/pages/checkoutStepPages/components/CheckoutSteps';
 import NoProduct from 'src/components/NoProduct';
 import TopCartItem from 'src/components/TopCartItem';
 import {

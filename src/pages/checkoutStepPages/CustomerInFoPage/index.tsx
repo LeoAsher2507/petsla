@@ -7,12 +7,12 @@ import {
   Container,
   FloatingLabel,
   Form,
-  Row
+  Row,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import CheckoutSteps from 'src/components/CheckoutSteps';
+import CheckoutSteps from 'src/pages/checkoutStepPages/components/CheckoutSteps';
 import { addOrderMethod } from 'src/services/user/userAction';
 import { RootState } from 'src/stores/rootReducer';
 import { IOrderInfo } from 'src/types/authTypes';
@@ -20,7 +20,7 @@ import { ICartProduct, IRequestedOrder } from 'src/types/productTypes';
 import { ERouterPath } from 'src/types/route';
 import {
   useAppDispatch,
-  useAppSelector
+  useAppSelector,
 } from 'src/utils/hook.ts/customReduxHook';
 import { customerInfoPageSchema } from 'src/utils/yup';
 import './CustomerInFoPage.scss';
@@ -96,14 +96,13 @@ const CustomerInFoPage = () => {
                   <Form.Group className='my-3'>
                     <Form.Label> {t('label.fullname')} </Form.Label>
                     <Form.Control
-                      disabled
                       type='text'
                       placeholder='Full name'
                       {...form.register('name')}
                     />
-                    {/* <Form.Text className='text-danger'>
+                    <Form.Text className='text-danger'>
                       {form.formState.errors.name?.message}
-                    </Form.Text> */}
+                    </Form.Text>
                   </Form.Group>
 
                   <Form.Group className='my-3'>
@@ -185,7 +184,9 @@ const CustomerInFoPage = () => {
                   <div className='cart-page-btn-wrap'>
                     <Row>
                       <Col>
-                        <Button className='cart-page-btn custom-btn' onClick={handleBack}>
+                        <Button
+                          className='cart-page-btn custom-btn'
+                          onClick={handleBack}>
                           Back
                         </Button>
                       </Col>
