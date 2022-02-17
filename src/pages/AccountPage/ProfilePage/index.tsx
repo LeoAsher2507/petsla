@@ -6,10 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { useOutletContext } from 'react-router-dom';
 import Loading from 'src/components/Loading';
 import AccountPageHeader from 'src/pages/accountPage/components/AccountPageHeader';
+import { getUserInfoMethod } from 'src/services/user/userAction';
 import { RootState } from 'src/stores/rootReducer';
 import { EGender } from 'src/types/authTypes';
 import { ERequestStatus } from 'src/types/commonType';
-import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import { userInfoSchema } from 'src/utils/yup';
 import './ProfilePage.scss';
@@ -40,6 +44,7 @@ const ProfilePage = () => {
     phoneNumber: currentUser?.phoneNumber || '',
     gender: EGender[currentUser?.gender || 3],
   };
+  const dispatch = useAppDispatch();
 
   const form = useForm({
     resolver: yupResolver(userInfoSchema),
@@ -57,6 +62,10 @@ const ProfilePage = () => {
   const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     form.setValue('gender', event.target.value);
   };
+
+  React.useEffect(() => {
+    dispatch(getUserInfoMethod());
+  }, [dispatch]);
 
   useEffect(() => {
     form.reset({
@@ -76,7 +85,7 @@ const ProfilePage = () => {
       <div className='profile-page'>
         <AccountPageHeader
           titleIcon={<i className='bi bi-person-fill'></i>}
-          headerTitle='Profile'
+          headerTitle='My Profile'
           btnTitle={isEdit ? 'Save' : 'Edit Profile'}
           setShowDashboard={setShowDashboard}
           handleBtnClick={handleEditSaveBtnClick}
@@ -204,8 +213,10 @@ const ProfilePage = () => {
                     type='radio'
                     id={`gender-${EGender.MALE}`}
                   />
-                  <Form.Check.Label htmlFor={`gender-${EGender.MALE}`}>
-                    {EGender[EGender.MALE]}
+                  <Form.Check.Label
+                    className='gender-item'
+                    htmlFor={`gender-${EGender.MALE}`}>
+                    {EGender[EGender.MALE].toLowerCase()}
                   </Form.Check.Label>
                 </Form.Check>
                 <Form.Check>
@@ -220,8 +231,10 @@ const ProfilePage = () => {
                     type='radio'
                     id={`gender-${EGender.FEMALE}`}
                   />
-                  <Form.Check.Label htmlFor={`gender-${EGender.FEMALE}`}>
-                    {EGender[EGender.FEMALE]}
+                  <Form.Check.Label
+                    className='gender-item'
+                    htmlFor={`gender-${EGender.FEMALE}`}>
+                    {EGender[EGender.FEMALE].toLowerCase()}
                   </Form.Check.Label>
                 </Form.Check>
                 <Form.Check>
@@ -236,8 +249,10 @@ const ProfilePage = () => {
                     type='radio'
                     id={`gender-${EGender.OTHER}`}
                   />
-                  <Form.Check.Label htmlFor={`gender-${EGender.OTHER}`}>
-                    {EGender[EGender.OTHER] + form.getValues('gender')}
+                  <Form.Check.Label
+                    className='gender-item'
+                    htmlFor={`gender-${EGender.OTHER}`}>
+                    {EGender[EGender.OTHER].toLowerCase()}
                   </Form.Check.Label>
                 </Form.Check>
               </Form.Group>

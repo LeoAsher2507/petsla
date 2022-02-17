@@ -50,8 +50,7 @@ export const getOneOrderMethod = createAsyncThunk(
   'user/getOneOrderMethod',
   async (id: number, thunkApi) => {
     try {
-      const response = await userApiMethod.getOneOrder(id);
-      console.log('get 1 order', response.data);
+      const response = await userApiMethod.getOneOrder(id); 
       return response.data;
     } catch (err) {
       const error = err as AxiosError<ILoginResponseError>;

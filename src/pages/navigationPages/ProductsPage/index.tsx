@@ -21,15 +21,14 @@ const ProductsPage = () => {
     dispatch(getAllProductMethod());
   }, [dispatch]);
 
-  const [productsPerPage, setProductsPerPage] = useState(12);
-  // const productsPerPage = 12;
+  const [itemsPerPage, setItemsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirsProduct = indexOfLastProduct - productsPerPage;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirsItem = indexOfLastItem - itemsPerPage;
   const currentProductList = productList.slice(
-    indexOfFirsProduct,
-    indexOfLastProduct
+    indexOfFirsItem,
+    indexOfLastItem
   );
 
   return (
@@ -39,8 +38,8 @@ const ProductsPage = () => {
         <ProductList productList={currentProductList} />
 
         <CustomPagination
-          setProductsPerPage={setProductsPerPage}
-          totalPage={Math.ceil(productList.length / productsPerPage)}
+          setItemsPerPage={setItemsPerPage}
+          totalPage={Math.ceil(productList.length / itemsPerPage)}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />

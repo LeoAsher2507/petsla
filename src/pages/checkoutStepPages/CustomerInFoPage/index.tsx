@@ -12,6 +12,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import CheckoutSteps from 'src/pages/checkoutStepPages/components/CheckoutSteps';
 import { addOrderMethod } from 'src/services/user/userAction';
 import { RootState } from 'src/stores/rootReducer';
@@ -51,8 +52,7 @@ const CustomerInFoPage = () => {
     navigate(ERouterPath.CART);
   };
 
-  const handleNext = (): void => {
-    // navigate(ERouterPath.REVIEW);
+  const handleNext = (event: any): void => {
     const order: IRequestedOrder = {
       orderItems: cartList.map((product: ICartProduct) => ({
         product_id: product.id,
@@ -64,7 +64,9 @@ const CustomerInFoPage = () => {
       note: form.getValues('note'),
       total_price: totalInCart.price,
     };
-    dispatch(addOrderMethod(order));
+    if (totalInCart.quantity <= 0) {
+      toast.warning(t('message.noProductInCart'));
+    } else dispatch(addOrderMethod(order));
   };
 
   useEffect(() => {
@@ -193,7 +195,6 @@ const CustomerInFoPage = () => {
                       <Col>
                         <Button
                           type='submit'
-                          onClick={handleNext}
                           className='cart-page-btn checkout-btn custom-btn bg-fill'>
                           Next
                         </Button>

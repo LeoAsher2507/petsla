@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   addOrderMethod,
+  getAllOrderMethod,
+  getOneOrderMethod,
   getUserInfoMethod,
 } from 'src/services/user/userAction';
 import { IOrderInfo, IUser } from 'src/types/authTypes';
 import { ERequestStatus } from 'src/types/commonType';
-import { IRequestedOrder } from 'src/types/productTypes';
+import { IOrder } from 'src/types/productTypes';
 import {
   getLocalStorage,
   removeLocalStorage,
@@ -15,13 +17,15 @@ import {
 interface IUserSliceState {
   currentOrderInfo: IOrderInfo | null;
   currentUser: IUser | null;
-  orders: IRequestedOrder[];
+  orders: IOrder[];
+  currentOrder: IOrder | null;
   requestStatus: ERequestStatus;
 }
 
 const initialState: IUserSliceState = {
   currentOrderInfo: getLocalStorage('currentOrderInfo'),
   orders: [],
+  currentOrder: null,
   currentUser: getLocalStorage('currentUser'),
   requestStatus: ERequestStatus.FULFILLED,
 };
@@ -58,7 +62,18 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addOrderMethod.fulfilled, (state, action) => {})
+      .addCase(addOrderMethod.pending, (state) => {
+        state.requestStatus = ERequestStatus.PENDING;
+      })
+
+      .addCase(addOrderMethod.fulfilled, (state) => {
+        state.requestStatus = ERequestStatus.FULFILLED;
+      })
+
+      .addCase(addOrderMethod.rejected, (state) => {
+        state.requestStatus = ERequestStatus.REJECTED;
+      })
+
       .addCase(getUserInfoMethod.pending, (state) => {
         state.requestStatus = ERequestStatus.PENDING;
       })
@@ -76,6 +91,32 @@ const userSlice = createSlice({
         state.requestStatus = ERequestStatus.FULFILLED;
       })
       .addCase(getUserInfoMethod.rejected, (state) => {
+        state.requestStatus = ERequestStatus.REJECTED;
+      })
+
+      .addCase(getAllOrderMethod.pending, (state) => {
+        state.requestStatus = ERequestStatus.PENDING;
+      })
+
+      .addCase(getAllOrderMethod.fulfilled, (state, action) => {
+        state.orders = action.payload;
+        state.requestStatus = ERequestStatus.FULFILLED;
+      })
+
+      .addCase(getAllOrderMethod.rejected, (state) => {
+        state.requestStatus = ERequestStatus.REJECTED;
+      })
+
+      .addCase(getOneOrderMethod.pending, (state) => {
+        state.requestStatus = ERequestStatus.PENDING;
+      })
+
+      .addCase(getOneOrderMethod.fulfilled, (state, action) => {
+        state.requestStatus = ERequestStatus.FULFILLED;
+        state.currentOrder = action.payload;
+      })
+
+      .addCase(getOneOrderMethod.rejected, (state) => {
         state.requestStatus = ERequestStatus.REJECTED;
       });
   },

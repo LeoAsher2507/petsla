@@ -1,11 +1,15 @@
 @import 'src/variable.scss';
 
-.custome-pagination {
+.custom-pagination {
   margin: toRem(26) toRem(4) toRem(30);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap-reverse;
+
+  * {
+    transition: 0.3s !important;
+  }
 
   ul {
     padding: 0;
@@ -14,6 +18,14 @@
 
   .pagination-wrap {
     margin-top: toRem(12);
+    .page-item .page-link {
+      background-color: unset;
+
+      &:hover {
+        box-shadow: inset toRem(100) toRem(100) toRem(100) rgba(0, 0, 0, 0.08);
+      }
+    }
+
     .page-item:not(.disabled) .page-link {
       color: $primary-color;
     }

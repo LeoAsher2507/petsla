@@ -8,14 +8,12 @@ const WishlistPage = () => {
   }>();
   return (
     <div>
-      Wishli
       <AccountPageHeader
-        titleIcon={<i className='bi bi-person-fill'></i>}
-        headerTitle='Profile'
-        btnTitle='Edit Profile'
+        titleIcon={<i className='bi bi-heart-fill'></i>}
+        headerTitle='Wishlist'
+        btnTitle='Add all to cart'
         setShowDashboard={setShowDashboard}
       />
-      stPage
     </div>
   );
 };

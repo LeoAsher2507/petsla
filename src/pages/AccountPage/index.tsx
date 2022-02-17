@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Offcanvas, Row } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import AccountPageDashboard from 'src/pages/accountPage/components/AccountPageDashboard';
-import {
-  getAllOrderMethod,
-  getUserInfoMethod,
-} from 'src/services/user/userAction';
 import { RootState } from 'src/stores/rootReducer';
-import {
-  useAppDispatch,
-  useAppSelector,
-} from 'src/utils/hook.ts/customReduxHook';
+import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 import './AccountPage.scss';
 
 const AccountPage = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const [showDashboard, setShowDashboard] = useState(false);
 
   const { style } = useAppSelector((state: RootState) => state.themeState);
-
-  useEffect(() => {
-    dispatch(getUserInfoMethod());
-    dispatch(getAllOrderMethod());
-  }, [dispatch]);
 
   return (
     <div className='account-page'>
@@ -53,7 +41,7 @@ const AccountPage = () => {
         onHide={() => setShowDashboard(false)}>
         <Offcanvas.Header closeButton></Offcanvas.Header>
         <Offcanvas.Body>
-          <AccountPageDashboard />
+          <AccountPageDashboard setShowDashboard={setShowDashboard} />
         </Offcanvas.Body>
       </Offcanvas>
     </div>

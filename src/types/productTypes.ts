@@ -61,6 +61,13 @@ export interface IOrderItem {
   order: number;
 }
 
+export enum EOrderStatus {
+  PENDING,
+  SHIPPING,
+  DELIVERED,
+  CANCELLEDf,
+}
+
 // const x = {
 //   orderItems: [{ product_id: 8, quantity: 1, price: 360000 }],
 //   number_phone: '123123',
