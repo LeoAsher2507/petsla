@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
+import { t } from 'i18next';
 import { toast } from 'react-toastify';
 import { loginMethod } from 'src/services/auth/authAction';
 import {
@@ -17,15 +18,11 @@ import {
 interface IInitialState {
   token: string;
   requestStatus: ERequestStatus;
-  loginModalIsOpen: boolean;
-  registerModalIsOpen: boolean;
 }
 
 const initialState: IInitialState = {
   token: getLocalStorage('token'),
   requestStatus: ERequestStatus.FULFILLED,
-  loginModalIsOpen: false,
-  registerModalIsOpen: false,
 };
 
 const authSlice = createSlice({
@@ -35,23 +32,8 @@ const authSlice = createSlice({
     logoutMethod: (state) => {
       state.token = '';
       removeLocalStorage('token');
-      toast.success('Logout successfully!');
-    },
-
-    openLoginModal: (state) => {
-      state.loginModalIsOpen = true;
-    },
-
-    closeLoginModal: (state) => {
-      state.loginModalIsOpen = false;
-    },
-
-    openRegisterModal: (state) => {
-      state.registerModalIsOpen = true;
-    },
-
-    closeRegisterModal: (state) => {
-      state.registerModalIsOpen = false;
+      removeLocalStorage('currentOrderInfo');
+      toast.success(t('message.success.logout'));
     },
   },
   extraReducers: (builder) => {
@@ -68,7 +50,7 @@ const authSlice = createSlice({
         >;
         state.token = payload.data.token;
         setLocalStorage('token', state.token);
-        toast.success('Login successfully!');
+        toast.success(t('message.success.login'));
       })
       .addCase(loginMethod.rejected, (state, action) => {
         state.requestStatus = ERequestStatus.REJECTED;
@@ -83,10 +65,4 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 
-export const {
-  logoutMethod,
-  openLoginModal,
-  openRegisterModal,
-  closeLoginModal,
-  closeRegisterModal,
-} = authSlice.actions;
+export const { logoutMethod } = authSlice.actions;

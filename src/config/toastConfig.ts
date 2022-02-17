@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
 toast.configure({
-  autoClose: 2000,
+  autoClose: 1500,
   position: toast.POSITION.TOP_RIGHT,
 });
 

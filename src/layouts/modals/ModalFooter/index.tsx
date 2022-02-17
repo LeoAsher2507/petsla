@@ -28,6 +28,7 @@ const ModalFooter = ({
       </Button>
       <Button
         type={type || 'submit'}
+        className="custom-btn bg-fill"
         onClick={handleSave ? handleSave : () => {}}>
         {requestStatus === ERequestStatus.PENDING ? (
           <>

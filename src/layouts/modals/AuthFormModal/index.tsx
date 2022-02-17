@@ -47,7 +47,7 @@ const AuthFormModal = ({
       <Modal.Body className=''>{children}</Modal.Body>
 
       <div className='action-wrap'>
-        <Button className='btn-item mt-2' type='submit'>
+        <Button className='btn-item mt-2 custom-btn bg-fill' type='submit'>
           {requestStatus === ERequestStatus.PENDING ? (
             <>
               <Spinner animation='border' size='sm' /> Loading...

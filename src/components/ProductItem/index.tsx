@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { openLoginModal } from 'src/services/auth/authSlice';
+import { setLoginModalIsOpen } from 'src/services/modal/modalSlice';
 import { addToCart } from 'src/services/product/productSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { ICartProduct, IProduct } from 'src/types/productTypes';
@@ -19,6 +20,8 @@ const ProductItem = (props: any) => {
   const productUrlImg = `url('${
     process.env.REACT_APP_BASE_URL + product.images || Media.errorLoading
   }')`;
+
+  const { t } = useTranslation();
 
   const { authState, themeState } = useAppSelector((state: RootState) => state);
   const { token } = authState;
@@ -37,15 +40,15 @@ const ProductItem = (props: any) => {
       quantity: 1,
     };
     dispatch(addToCart(newCartProduct));
-    toast.success('Thêm vào giỏ hàng thành công!');
+    toast.success(t('message.success.addToCart'));
   }
 
   const handleBuyNowOnClick = () => {
     if (token) {
-      toast.success('Buy successfully!');
+      toast.success(t('message.success.checkout'));
     } else {
-      toast.warn('You have to login first!');
-      dispatch(openLoginModal());
+      toast.warn(t('message.warning.loginFirst'));
+      dispatch(setLoginModalIsOpen(true));
     }
   };
 

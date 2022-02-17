@@ -6,11 +6,15 @@ import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 const StyledLink = ({ children, to, ...props }: LinkProps) => {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
+
   const style = useAppSelector((state: RootState) => state.themeState.style);
 
   return (
     <Link
-      style={{ color: match ? 'rgb(230, 150, 70)' : style.color, textDecoration: 'none' }}
+      style={{
+        color: match ? style.primaryColor : style.color,
+        textDecoration: 'none',
+      }}
       to={to}
       {...props}>
       {children}

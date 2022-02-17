@@ -1,0 +1,102 @@
+@import 'src/variable.scss';
+
+.profile-page {
+  .profile-page-body {
+    .common-info {
+      .user-ava-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: toRem(12) toRem(20);
+        height: 100%;
+
+        .user-ava-wrap {
+          display: flex;
+          align-items: center;
+
+          img {
+            max-width: toRem(60);
+            width: toRem(60);
+          }
+
+          .name-wrap {
+            margin-left: toRem(12);
+            display: flex;
+            flex-direction: column;
+
+            .full-name {
+              font-weight: 600;
+            }
+          }
+        }
+
+        .member-type {
+          font-size: toRem(14);
+          white-space: nowrap;
+          text-transform: uppercase;
+          opacity: 0.7;
+          user-select: none;
+          font-weight: 600;
+        }
+      }
+
+      .order-type-card-wrap {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: toRem(16);
+        height: 100%;
+
+        .order-card-item {
+          padding: toRem(12);
+          user-select: none;
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          .quantity {
+            font-weight: 600;
+            color: $primary-color;
+            font-size: toRem(20);
+            line-height: toRem(20);
+          }
+
+          .title {
+            font-size: toRem(14);
+            opacity: 0.7;
+          }
+        }
+
+        @media (max-width: 1200px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+    // common-info
+
+    .personal-info {
+      .form-gr {
+        display: flex;
+        align-items: center;
+
+        label {
+          width: toRem(150);
+          margin: 0;
+        }
+      }
+
+      .form-gr-row {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        & > div {
+          flex: 1;
+        }
+      }
+      // form-gr-row
+    }
+    // personal-info
+  }
+}

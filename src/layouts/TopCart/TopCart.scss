@@ -18,23 +18,6 @@
 
     .top-cart-btn {
       margin: toRem(6);
-      padding: toRem(8);
-      border-radius: toRem(5);
-
-      font-weight: 600;
-      border: 1px solid $primary-color;
-      background-color: unset;
-      transition: color 0.2s background-color 0.3s;
-
-      &:first-child {
-        background-color: $primary-color;
-        color: $white-text-color;
-      }
-
-      &:last-child:hover {
-        background-color: $primary-color;
-        color: $white-text-color;
-      }
     }
   }
 }

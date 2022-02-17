@@ -27,6 +27,8 @@
     "fullname": "Họ và tên",
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
+    "phoneNumber": "Số điện thoại",
+    "address": "Địa chỉ",
     "gender": {
       "title": "Giới tính",
       "male": "Nam",
@@ -35,13 +37,25 @@
     },
     "rememberPassword": "Nhớ mật khẩu",
     "voucher": "Mã giảm giá",
-    "note": "Chú ý"
+    "note": "Chú ý",
+    "search": "Tìm kiếm"
   },
   "message": {
     "error": {
       "empty": "không được để trống"
     },
-    "noProduct": "Không có sản phẩm nào!"
+    "warning": {
+      "loginFirst": "Bạn cần đăng nhập trước!",
+      "noProduct": "Không có sản phẩm nào!",
+      "noProductInCart": "Không có sản phẩm nào trong giỏ hàng!"
+    },
+    "success": {
+      "login": "Đăng nhập thành công!",
+      "logout": "Đăng xuất thành công!",
+      "register": "Đăng ký thành công!",
+      "addToCart": "Thêm vào giỏ hàng thành công!",
+      "checkout": "Đặt hàng thành công!"
+    }
   },
   "languageTitle": {
     "vn": "Tiếng Việt",

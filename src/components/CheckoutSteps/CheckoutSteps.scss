@@ -1,0 +1,11 @@
+@import 'src/variable.scss';
+
+.checkout-steps {
+  .checkout-step {
+    transition: color 0.2s;
+    &.active,
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}

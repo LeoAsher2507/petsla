@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import AuthFormModal from 'src/layouts/modals/AuthFormModal';
 import { registerMethod } from 'src/services/auth/authAction';
 import {
-  closeRegisterModal,
-  openLoginModal,
-} from 'src/services/auth/authSlice';
+  setLoginModalIsOpen,
+  setRegisterModalIsOpen,
+} from 'src/services/modal/modalSlice';
 import { RootState } from 'src/stores/rootReducer';
 import { IRegisterFormData } from 'src/types/authTypes';
 import { EModalType } from 'src/types/commonType';
@@ -30,7 +30,7 @@ const RegisterModal = () => {
   };
 
   const { registerModalIsOpen } = useAppSelector(
-    (state: RootState) => state.authState
+    (state: RootState) => state.modalState
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -45,13 +45,13 @@ const RegisterModal = () => {
   const handleClose = useCallback(() => {
     form.reset();
     navigate(-1);
-    dispatch(closeRegisterModal());
+    dispatch(setRegisterModalIsOpen(false));
   }, [dispatch, form, navigate]);
 
   const handleChangeToLogin = () => {
     form.reset();
-    dispatch(closeRegisterModal());
-    dispatch(openLoginModal());
+    dispatch(setRegisterModalIsOpen(false));
+    dispatch(setLoginModalIsOpen(true));
   };
 
   const handleLogin = (data: IRegisterFormData) => {

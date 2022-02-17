@@ -40,7 +40,7 @@ const AuthFormWrap = ({
               type='submit'
               variant='primary'
               disabled={disableBtn ? disableBtn : false}
-              className={disableBtn ? 'isDisable' : ''}>
+              className={`${disableBtn ? 'isDisable' : ''} custom-btn bg-fill`}>
               {requestStatus === ERequestStatus.PENDING ? 'Loading' : title}
             </Button>
           </div>
