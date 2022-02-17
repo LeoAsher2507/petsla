@@ -11,6 +11,7 @@ import WishlistPage from 'src/pages/accountPage/WishlistPage';
 import CustomerInFoPage from 'src/pages/checkoutStepPages/CustomerInFoPage';
 import PaymentPage from 'src/pages/checkoutStepPages/PaymentPage';
 import ReviewPage from 'src/pages/checkoutStepPages/ReviewPage';
+import DetailOrderPage from 'src/pages/detailPages/DetailOrderPage';
 import DetailProductPage from 'src/pages/detailPages/DetailProductPage';
 import CartPage from 'src/pages/navigationPages/CartPage';
 import ContactPage from 'src/pages/navigationPages/ContactPage';
@@ -43,7 +44,13 @@ function App() {
                     path={ERouterPath.WISH_LIST}
                     element={<WishlistPage />}
                   />
-                  <Route path={ERouterPath.ORDERS} element={<OrdersPages />} />
+                  <Route
+                    path={ERouterPath.ORDERS}
+                    element={<OrdersPages />}></Route>
+                  <Route
+                    path={`${ERouterPath.ORDERS}/:id`}
+                    element={<DetailOrderPage />}
+                  />
                 </Route>
               </Route>
 

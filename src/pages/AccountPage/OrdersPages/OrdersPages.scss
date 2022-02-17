@@ -1,0 +1,47 @@
+@import 'src/variable.scss';
+
+.orders-page {
+  overflow: auto;
+
+  .orders-table {
+    min-width: toRem(600);
+
+    .order-row {
+      display: flex;
+      width: 100%;
+      padding: toRem(16) toRem(8);
+
+      .order-cell {
+        text-align: center;
+      }
+
+      .order-index {
+        flex: 1;
+      }
+
+      .order-id {
+        flex: 2;
+      }
+
+      .order-status {
+        flex: 3;
+      }
+
+      .order-time {
+        flex: 3;
+      }
+
+      .order-price {
+        flex: 3;
+      }
+
+      &.orders-header {
+        padding-bottom: 0;
+        font-weight: 700;
+        font-size: toRem(18);
+        opacity: 0.7;
+        user-select: none;
+      }
+    }
+  }
+}

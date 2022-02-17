@@ -1,0 +1,120 @@
+@import 'src/variable.scss';
+
+.detail-order-page {
+  .detail-order-body {
+    .detail-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: toRem(4) 0;
+
+      .header-item {
+        display: flex;
+        align-items: center;
+
+        .title {
+          opacity: 0.8;
+          margin-right: 3px;
+        }
+      }
+    }
+
+    .detail-order-item {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0;
+
+      .detail-order-item-link {
+        padding: toRem(16);
+        text-decoration: none;
+        width: 100%;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid rgba(170, 170, 170, 0.6);
+      }
+
+      &:hover {
+        box-shadow: inset toRem(2000) toRem(2000) rgba(0, 0, 0, 0.05);
+      }
+
+      .product-info {
+        display: flex;
+        flex: 1;
+
+        .product-img {
+          width: toRem(72);
+          min-width: toRem(72);
+          padding-top: toRem(72);
+          margin: 0 toRem(16) 0 0;
+          height: 100%;
+          background-size: cover;
+        }
+
+        .product-description {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .product-name {
+            font-weight: 600;
+            font-size: toRem(16);
+            line-height: toRem(16);
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+          }
+
+          .product-price {
+            font-size: toRem(12);
+          }
+
+          .product-total-price {
+            font-size: toRem(14);
+            font-weight: 600;
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .detail-order-info {
+    .info-col {
+      padding: toRem(16) toRem(20);
+
+      .info-header {
+        font-size: toRem(18);
+        font-weight: 600;
+      }
+
+      .shipping-info {
+        .shipping-info-body {
+          .info-item {
+            list-style: inside;
+
+            .title {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      .info-total-summary {
+        .header-wrap {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .total-value {
+            font-weight: 600;
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+}

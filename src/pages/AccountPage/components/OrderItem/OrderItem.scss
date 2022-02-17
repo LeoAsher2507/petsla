@@ -1,0 +1,17 @@
+@import 'src/variable.scss';
+
+.order-item {
+  margin: toRem(10) 0;
+  transition: 0.2s;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .order-item-link {
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+  }
+}

@@ -1,3 +1,4 @@
+import { setLocalStorage } from './../../utils/localStorage';
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import {
@@ -6,6 +7,7 @@ import {
 } from 'src/services/product/productAction';
 import { ERequestStatus } from 'src/types/commonType';
 import { ICartProduct, IProduct } from 'src/types/productTypes';
+import { getLocalStorage } from 'src/utils/localStorage';
 
 interface IInitialState {
   productList: IProduct[];
@@ -19,27 +21,6 @@ interface ITotalInCart {
   quantity: number;
   price: number;
 }
-
-const initialState: IInitialState = {
-  productList: [],
-  currentProduct: {
-    id: 0,
-    category: 0,
-    created_date: '',
-    description: '',
-    images: '',
-    modified_date: '',
-    price: 0,
-    product_name: '',
-    stock: 0,
-  },
-  cartList: [],
-  totalInCart: {
-    quantity: 0,
-    price: 0,
-  },
-  requestStatus: ERequestStatus.FULFILLED,
-};
 
 const calculateTotalInCart = (cartList: ICartProduct[]): ITotalInCart => {
   const totalQuantity = cartList.reduce(
@@ -59,6 +40,27 @@ const calculateTotalInCart = (cartList: ICartProduct[]): ITotalInCart => {
   };
 };
 
+const initialState: IInitialState = {
+  productList: [],
+  currentProduct: {
+    id: 0,
+    category: 0,
+    created_date: '',
+    description: '',
+    images: '',
+    modified_date: '',
+    price: 0,
+    product_name: '',
+    stock: 0,
+  },
+  cartList: getLocalStorage('cartList') || [],
+  totalInCart: {
+    quantity: calculateTotalInCart(getLocalStorage('cartList') || []).quantity,
+    price: calculateTotalInCart(getLocalStorage('cartList') || []).quantity,
+  },
+  requestStatus: ERequestStatus.FULFILLED,
+};
+
 const productSlice = createSlice({
   name: 'product',
   initialState,
@@ -74,6 +76,7 @@ const productSlice = createSlice({
           : state.cartList.unshift(product);
 
         state.totalInCart = calculateTotalInCart(state.cartList);
+        setLocalStorage('cartList', state.cartList);
       }
     },
 
@@ -82,6 +85,7 @@ const productSlice = createSlice({
       if (id) {
         state.cartList = state.cartList.filter((item) => item.id !== id);
         state.totalInCart = calculateTotalInCart(state.cartList);
+        setLocalStorage('cartList', state.cartList);
       }
     },
 
@@ -94,6 +98,7 @@ const productSlice = createSlice({
 
         if (index >= 0) state.cartList[index].quantity += 1;
         state.totalInCart = calculateTotalInCart(state.cartList);
+        setLocalStorage('cartList', state.cartList);
       }
     },
 
@@ -109,6 +114,7 @@ const productSlice = createSlice({
           : (state.cartList[index].quantity -= 0);
 
         state.totalInCart = calculateTotalInCart(state.cartList);
+        setLocalStorage('cartList', state.cartList);
       }
     },
 
@@ -135,6 +141,10 @@ const productSlice = createSlice({
       .addCase(getAllProductMethod.fulfilled, (state, action) => {
         state.productList = action.payload.data;
         state.requestStatus = ERequestStatus.FULFILLED;
+      })
+
+      .addCase(getAllProductMethod.rejected, (state, action) => {
+        state.requestStatus = ERequestStatus.REJECTED;
       })
 
       .addCase(getOneProductMethod.pending, (state, action) => {

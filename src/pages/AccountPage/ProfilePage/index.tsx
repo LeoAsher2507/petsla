@@ -6,10 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { useOutletContext } from 'react-router-dom';
 import Loading from 'src/components/Loading';
 import AccountPageHeader from 'src/pages/accountPage/components/AccountPageHeader';
+import { getUserInfoMethod } from 'src/services/user/userAction';
 import { RootState } from 'src/stores/rootReducer';
 import { EGender } from 'src/types/authTypes';
 import { ERequestStatus } from 'src/types/commonType';
-import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from 'src/utils/hook.ts/customReduxHook';
 import Media from 'src/utils/Media';
 import { userInfoSchema } from 'src/utils/yup';
 import './ProfilePage.scss';
@@ -19,9 +23,12 @@ const ProfilePage = () => {
     setShowDashboard: React.Dispatch<React.SetStateAction<boolean>>;
   }>();
 
-  const { userState, themeState } = useAppSelector((state: RootState) => state);
+  const { userState, themeState, authState } = useAppSelector(
+    (state: RootState) => state
+  );
 
   const { currentUser, requestStatus } = userState;
+  const { token } = authState;
 
   const { style } = themeState;
   const { t } = useTranslation();
@@ -37,6 +44,7 @@ const ProfilePage = () => {
     phoneNumber: currentUser?.phoneNumber || '',
     gender: EGender[currentUser?.gender || 3],
   };
+  const dispatch = useAppDispatch();
 
   const form = useForm({
     resolver: yupResolver(userInfoSchema),
@@ -51,6 +59,14 @@ const ProfilePage = () => {
     }
   };
 
+  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    form.setValue('gender', event.target.value);
+  };
+
+  React.useEffect(() => {
+    dispatch(getUserInfoMethod());
+  }, [dispatch]);
+
   useEffect(() => {
     form.reset({
       name: currentUser?.name || '',
@@ -59,11 +75,9 @@ const ProfilePage = () => {
       email: currentUser?.email || '',
       username: currentUser?.username || '',
       phoneNumber: currentUser?.phoneNumber || '',
-      gender: EGender[currentUser?.gender || 3],
+      gender: EGender[currentUser?.gender || 2],
     });
   }, [currentUser, form]);
-
-  console.log('status', requestStatus);
 
   return (
     <>
@@ -71,8 +85,8 @@ const ProfilePage = () => {
       <div className='profile-page'>
         <AccountPageHeader
           titleIcon={<i className='bi bi-person-fill'></i>}
-          headerTitle='Profile'
-          btnTitle='Edit Profile'
+          headerTitle='My Profile'
+          btnTitle={isEdit ? 'Save' : 'Edit Profile'}
           setShowDashboard={setShowDashboard}
           handleBtnClick={handleEditSaveBtnClick}
         />
@@ -85,7 +99,12 @@ const ProfilePage = () => {
                   className='user-ava-card shadow-sm rounded'
                   style={{ backgroundColor: style.backgroundColor }}>
                   <div className='user-ava-wrap'>
-                    <img src={Media.logo} alt='User avatar' />
+                    <div className='user-ava'>
+                      <img
+                        src={token ? Media.cuteCat : Media.noUser}
+                        alt='User avatar'
+                      />
+                    </div>
                     <div className='name-wrap'>
                       <span className='full-name'> {currentUser?.name} </span>
                       <span className='username'>
@@ -137,8 +156,11 @@ const ProfilePage = () => {
             style={{ backgroundColor: style.backgroundColor }}>
             <Form>
               <Form.Group className='mt-3 form-gr'>
-                <Form.Label>{t('label.firstName')}: </Form.Label>
+                <Form.Label htmlFor='first-name'>
+                  {t('label.firstName')}:{' '}
+                </Form.Label>
                 <Form.Control
+                  id='first-name'
                   disabled={!isEdit}
                   type='text'
                   {...form.register('firstName')}
@@ -146,8 +168,11 @@ const ProfilePage = () => {
               </Form.Group>
 
               <Form.Group className='mt-3 form-gr'>
-                <Form.Label>{t('label.lastName')}:</Form.Label>
+                <Form.Label htmlFor='last-name'>
+                  {t('label.lastName')}:
+                </Form.Label>
                 <Form.Control
+                  id='last-name'
                   disabled={!isEdit}
                   type='text'
                   {...form.register('lastName')}
@@ -155,8 +180,9 @@ const ProfilePage = () => {
               </Form.Group>
 
               <Form.Group className='mt-3 form-gr'>
-                <Form.Label>Email: {form.getValues('firstName')} </Form.Label>
+                <Form.Label htmlFor='email'>Email:</Form.Label>
                 <Form.Control
+                  id='email'
                   disabled={!isEdit}
                   type='text'
                   {...form.register('email')}
@@ -164,21 +190,71 @@ const ProfilePage = () => {
               </Form.Group>
 
               <Form.Group className='mt-3 form-gr'>
-                <Form.Label>{t('label.gender.title')}: </Form.Label>
+                <Form.Label htmlFor='phone-number'>Phone number: </Form.Label>
                 <Form.Control
-                  disabled={!isEdit}
-                  type='text'
-                  {...form.register('gender')}
-                />
-              </Form.Group>
-
-              <Form.Group className='mt-3 form-gr'>
-                <Form.Label>Phone number: </Form.Label>
-                <Form.Control
+                  id='phone-number'
                   disabled={!isEdit}
                   type='text'
                   {...form.register('phoneNumber')}
                 />
+              </Form.Group>
+
+              <Form.Group className='mt-3 form-gr'>
+                <Form.Label>{t('label.gender.title')}: </Form.Label>
+                <Form.Check>
+                  <Form.Check.Input
+                    disabled={!isEdit}
+                    onChange={handleGenderChange}
+                    defaultChecked={
+                      form.getValues('gender') === EGender[EGender.MALE]
+                    }
+                    value={EGender.MALE}
+                    name='gender'
+                    type='radio'
+                    id={`gender-${EGender.MALE}`}
+                  />
+                  <Form.Check.Label
+                    className='gender-item'
+                    htmlFor={`gender-${EGender.MALE}`}>
+                    {EGender[EGender.MALE].toLowerCase()}
+                  </Form.Check.Label>
+                </Form.Check>
+                <Form.Check>
+                  <Form.Check.Input
+                    disabled={!isEdit}
+                    onChange={handleGenderChange}
+                    defaultChecked={
+                      form.getValues('gender') === EGender[EGender.FEMALE]
+                    }
+                    value={EGender.FEMALE}
+                    name='gender'
+                    type='radio'
+                    id={`gender-${EGender.FEMALE}`}
+                  />
+                  <Form.Check.Label
+                    className='gender-item'
+                    htmlFor={`gender-${EGender.FEMALE}`}>
+                    {EGender[EGender.FEMALE].toLowerCase()}
+                  </Form.Check.Label>
+                </Form.Check>
+                <Form.Check>
+                  <Form.Check.Input
+                    disabled={!isEdit}
+                    onChange={handleGenderChange}
+                    defaultChecked={
+                      form.getValues('gender') === EGender[EGender.OTHER]
+                    }
+                    value={EGender.OTHER}
+                    name='gender'
+                    type='radio'
+                    id={`gender-${EGender.OTHER}`}
+                  />
+                  <Form.Check.Label
+                    className='gender-item'
+                    htmlFor={`gender-${EGender.OTHER}`}>
+                    {EGender[EGender.OTHER].toLowerCase()}
+                  </Form.Check.Label>
+                </Form.Check>
               </Form.Group>
             </Form>
           </div>

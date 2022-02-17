@@ -1,20 +1,24 @@
 import React, { ChangeEvent } from 'react';
 import { Form, Pagination } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { RootState } from 'src/stores/rootReducer';
+import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
 import './CustomPagination.scss';
 
 interface IPaginationProps {
   totalPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  setProductsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  setItemsPerPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
+  listItemsPerPage?: number[];
 }
 
 const CustomPagination = ({
   totalPage,
   setCurrentPage,
-  setProductsPerPage,
+  setItemsPerPage,
   currentPage,
+  listItemsPerPage,
 }: IPaginationProps) => {
   const { t } = useTranslation();
 
@@ -23,16 +27,19 @@ const CustomPagination = ({
     setCurrentPage(page);
   };
 
-  const handleChangeProductsPerPage = (number: number) => {
+  const handleChangeItemsPerPage = (number: number) => {
     window.scrollTo(0, 0);
-    setProductsPerPage(number);
+    setItemsPerPage(number);
     setCurrentPage(1);
   };
 
+  const { style } = useAppSelector((state: RootState) => state.themeState);
+
   return (
-    <div className='custome-pagination'>
+    <div className='custom-pagination'>
       <Pagination className='pagination-wrap'>
         <Pagination.Item
+          style={{ backgroundColor: style.backgroundColor }}
           disabled={currentPage === 1}
           onClick={() => handleChangePage(currentPage - 1)}>
           <i className='fas fa-chevron-left'></i>
@@ -40,6 +47,7 @@ const CustomPagination = ({
 
         {Array.from(Array(totalPage).keys()).map((number) => (
           <Pagination.Item
+            style={{ backgroundColor: style.backgroundColor }}
             key={number + 1}
             active={number + 1 === currentPage}
             onClick={() => handleChangePage(number + 1)}>
@@ -48,6 +56,7 @@ const CustomPagination = ({
         ))}
 
         <Pagination.Item
+          style={{ backgroundColor: style.backgroundColor }}
           disabled={currentPage === totalPage}
           onClick={() => handleChangePage(currentPage + 1)}>
           <i className='fas fa-chevron-right'></i>
@@ -55,18 +64,28 @@ const CustomPagination = ({
       </Pagination>
 
       <Form.Group className='select-products-per-page'>
-        <Form.Label htmlFor='productsPerPage' className='label'>
-          {/* Products/Page */}
+        <Form.Label htmlFor='itemsPerPage' className='label'>
           {`${t('title.item')}/${t('title.page')}`}
         </Form.Label>
         <Form.Select
+          style={{ backgroundColor: style.backgroundColor, color: style.color }}
           onChange={(event: ChangeEvent<HTMLSelectElement>) =>
-            handleChangeProductsPerPage(Number(event.target.value))
+            handleChangeItemsPerPage(Number(event.target.value))
           }
-          id='productsPerPage'>
-          <option value={12}>12</option>
-          <option value={24}>24</option>
-          <option value={36}>36</option>
+          id='itemsPerPage'>
+          {listItemsPerPage ? (
+            listItemsPerPage.map((number: number) => (
+              <option key={number} value={number}>
+                {number}
+              </option>
+            ))
+          ) : (
+            <>
+              <option value={12}>12</option>
+              <option value={24}>24</option>
+              <option value={36}>36</option>
+            </>
+          )}
         </Form.Select>
       </Form.Group>
     </div>
