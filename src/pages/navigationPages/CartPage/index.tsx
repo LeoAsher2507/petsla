@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CheckoutSteps from 'src/pages/checkoutStepPages/components/CheckoutSteps';
-import NoProduct from 'src/components/NoProduct';
+import NoItems from 'src/components/NoItems';
 import TopCartItem from 'src/components/TopCartItem';
 import {
   handleMinus,
@@ -77,11 +77,11 @@ const CartPage = () => {
 
         <Row>
           <Col xs='12' md='7' lg='8'>
-            <Card>
+            <Card style={{ backgroundColor: style.backgroundColor }}>
               <Card.Header className='cart-page-header'>Cart</Card.Header>
               <Card.Body>
                 {cartList.length === 0 ? (
-                  <NoProduct message={t('message.warning.noProductInCart')} />
+                  <NoItems message={t('message.warning.noProductInCart')} />
                 ) : (
                   <Card
                     style={{

@@ -1,6 +1,7 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import StyledLink from 'src/components/customComponents/StyledLink';
 import TopCart from 'src/layouts/TopCart';
 import { RootState } from 'src/stores/rootReducer';
@@ -13,13 +14,24 @@ const TopNav = () => {
   const { themeState, productState } = useAppSelector(
     (state: RootState) => state
   );
+
   const { t } = useTranslation();
   const { style } = themeState;
   const { totalInCart } = productState;
 
-  const [searchTerm, setSearchTerm] = useState('');
+  let [searchParams, setSearchParams] = useSearchParams({
+    search: '',
+  });
+  const [tempSearchTerm, setTempSearchTerm] = useState(
+    searchParams.get('search') || ''
+  );
 
-  // const [showLoginModal, setShowLoginModal] = useState(false);
+  const navigate = useNavigate();
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const handleSearchTermChange = (value: string) => {
+    setTempSearchTerm(value);
+  };
+
   const [showCart, setShowCart] = useState(false);
 
   const handleCloseTopCart = () => {
@@ -28,7 +40,24 @@ const TopNav = () => {
 
   const handleSearch = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+    searchInputRef.current?.blur();
+    if (tempSearchTerm) {
+      setSearchParams({ search: tempSearchTerm });
+    } else {
+      setSearchParams({ search: '' });
+      navigate(ERouterPath.SHOP);
+    }
   };
+
+  useEffect(() => {
+    if (searchParams.get('search')) {
+      setTempSearchTerm(searchParams.get('search') || '');
+    }
+
+    return () => {
+      setTempSearchTerm('');
+    };
+  }, [setSearchParams, searchParams]);
 
   return (
     <div className='top-nav' style={{ backgroundColor: style.backgroundColor }}>
@@ -42,82 +71,30 @@ const TopNav = () => {
         <div className='search-wrap'>
           <Form onSubmit={handleSearch}>
             <Form.Group className='d-flex'>
-              <Button className='search-btn custom-btn bg-fill' type='submit'>
-                {/* <i className='bi bi-search'></i> */}
-                {t('label.search')}
-              </Button>
               <Form.Control
+                ref={searchInputRef}
                 style={{
                   backgroundColor: style.backgroundColor1,
                   color: style.color,
                 }}
                 className='input-search'
                 type='text'
-                name='searchTerm'
-                value={searchTerm}
+                name='search'
+                value={tempSearchTerm}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  setSearchTerm(event.target.value)
+                  handleSearchTermChange(event.target.value)
                 }
-                placeholder='Everything here is better than your ex'></Form.Control>
+                placeholder='Everything here is better than your ex'
+              />
+              <Button className='search-btn custom-btn bg-fill' type='submit'>
+                <i className='bi bi-search'></i>
+                {/* {t('label.search')} */}
+              </Button>
             </Form.Group>
           </Form>
         </div>
 
         <div className='top-nav-btn-wrap'>
-          {/* <div className='top-nav-item language-wrap'>
-            <ChangeLangPopOver />
-          </div> */}
-
-          {/* <div
-            className='top-nav__theme top-nav-item d-none d-lg-block'
-            onClick={() => handleToggleThemeClick()}>
-            {isLightTheme ? (
-              <i className='bi bi-moon'></i>
-            ) : (
-              <i className='bi bi-brightness-high-fill'></i>
-            )}
-            <div
-              className='top-nav-item__title'
-              style={{
-                backgroundColor: style.colorBlur,
-                color: style.backgroundColor,
-              }}>
-              {t('title.toggleTheme')}
-            </div>
-          </div> */}
-
-          {/* <div className='auth-btn__wrap top-nav-item'>
-            {token ? (
-              <>
-                <i
-                  onClick={handleLogoutClick}
-                  className='bi bi-box-arrow-right'></i>
-                <div
-                  className='top-nav-item__title'
-                  style={{
-                    backgroundColor: style.colorBlur,
-                    color: style.backgroundColor,
-                  }}>
-                  {t('title.logout')}
-                </div>
-              </>
-            ) : (
-              <>
-                <i
-                  onClick={handleLoginClick}
-                  className='bi bi-box-arrow-in-left'></i>
-                <div
-                  className='top-nav-item__title'
-                  style={{
-                    backgroundColor: style.colorBlur,
-                    color: style.backgroundColor,
-                  }}>
-                  {t('title.login')}
-                </div>
-              </>
-            )}
-          </div> */}
-
           <div
             className='top-nav__cart top-nav-item'
             onClick={() => {

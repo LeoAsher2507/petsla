@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from 'src/components/Loading';
 import { setLoginModalIsOpen } from 'src/services/modal/modalSlice';
@@ -14,6 +14,7 @@ import {
 import { RootState } from 'src/stores/rootReducer';
 import { ERequestStatus } from 'src/types/commonType';
 import { ICartProduct } from 'src/types/productTypes';
+import { ERouterPath } from 'src/types/route';
 import {
   useAppDispatch,
   useAppSelector,
@@ -29,6 +30,7 @@ const DetailProductPage = () => {
   );
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { style } = useSelector((state: RootState) => state.themeState);
   const { token } = useSelector((state: RootState) => state.authState);
@@ -58,12 +60,14 @@ const DetailProductPage = () => {
   };
 
   useEffect(() => {
-    if (id) dispatch(getOneProductMethod(id));
+    if (!Number(id) || !id) {
+      navigate(ERouterPath.NOT_FOUND);
+    } else dispatch(getOneProductMethod(id));
 
     return () => {
       dispatch(resetCurrentProduct());
     };
-  }, [dispatch, id]);
+  }, [dispatch, id, navigate]);
 
   return (
     <div

@@ -13,3 +13,13 @@ export enum EModalType {
   LOGIN,
   REGISTER,
 }
+
+export enum ESortType {
+  NAME,
+  PRICE,
+}
+
+export enum ESortDirect {
+  DESCENDING,
+  ASCENDING,
+}

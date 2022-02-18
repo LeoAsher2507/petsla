@@ -4,7 +4,7 @@
   border-radius: toRem(10);
   transition: 0.3s;
   overflow: hidden;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+  // box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
 
   * {
     z-index: $product-item-zindex;
@@ -19,7 +19,7 @@
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.1) !important;
   }
 
   .content {

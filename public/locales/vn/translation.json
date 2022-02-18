@@ -47,6 +47,7 @@
     "warning": {
       "loginFirst": "Bạn cần đăng nhập trước!",
       "noProduct": "Không có sản phẩm nào!",
+      "noOrder": "Bạn chưa đặt đơn hàng nào!",
       "noProductInCart": "Không có sản phẩm nào trong giỏ hàng!"
     },
     "success": {

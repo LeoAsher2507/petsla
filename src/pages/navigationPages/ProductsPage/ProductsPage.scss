@@ -1,0 +1,40 @@
+@import 'src/variable.scss';
+
+.product-page {
+  .product-page-header {
+    margin: toRem(40) auto toRem(10);
+    .header-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: toRem(14) toRem(24);
+      flex-wrap: wrap;
+
+      .search-results-wrap {
+        margin: toRem(8) 0;
+        .title {
+          font-size: toRem(18);
+          font-weight: 600;
+        }
+
+        .value {
+          opacity: 0.8;
+        }
+      }
+
+      .sort-wrap {
+        margin: toRem(8) 0;
+        margin-left: auto;
+        .sort-select-gr {
+          display: flex;
+          align-items: center;
+
+          .label {
+            margin: 0 toRem(10) 0 0;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}

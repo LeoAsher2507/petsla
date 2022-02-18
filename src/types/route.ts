@@ -21,4 +21,5 @@ export enum ERouterPath {
   REVIEW = '/review',
 
   DETAIL_PRODUCT = `/product`,
+  NOT_FOUND = '/not_found'
 }

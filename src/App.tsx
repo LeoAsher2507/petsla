@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Loading from 'src/components/Loading';
 import PageWrap from 'src/components/Navigation/PageWrap';
 import PrivateRoute from 'src/components/Navigation/PrivateRoute';
@@ -15,6 +15,7 @@ import DetailOrderPage from 'src/pages/detailPages/DetailOrderPage';
 import DetailProductPage from 'src/pages/detailPages/DetailProductPage';
 import CartPage from 'src/pages/navigationPages/CartPage';
 import ContactPage from 'src/pages/navigationPages/ContactPage';
+import NotFound from 'src/pages/NotFound';
 import { RootState } from 'src/stores/rootReducer';
 import { ERouterPath } from 'src/types/route';
 import { useAppSelector } from 'src/utils/hook.ts/customReduxHook';
@@ -51,6 +52,11 @@ function App() {
                     path={`${ERouterPath.ORDERS}/:id`}
                     element={<DetailOrderPage />}
                   />
+
+                  <Route
+                    path=''
+                    element={<Navigate to={ERouterPath.PROFILE} />}
+                  />
                 </Route>
               </Route>
 
@@ -73,7 +79,11 @@ function App() {
                 element={<CustomerInFoPage />}
               />
               <Route path={ERouterPath.HOME} element={<HomePage />} />
+
+              <Route path='*' element={<NotFound />} />
             </Route>
+
+            {/* <Route path={ERouterPath.NOT_FOUND} element={<NotFound />} /> */}
           </Routes>
         </Suspense>
       </div>

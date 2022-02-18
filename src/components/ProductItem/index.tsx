@@ -60,7 +60,7 @@ const ProductItem = (props: any) => {
   return (
     <>
       <div
-        className='product-item  mt-3 '
+        className='product-item  mt-3 shadow-sm'
         style={{ backgroundColor: style.backgroundColor }}>
         <Link
           to={ERouterPath.DETAIL_PRODUCT + '-' + product.id}

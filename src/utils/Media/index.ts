@@ -1,4 +1,5 @@
 import bannerImg from 'src/utils/Media/banner';
+import notFound from 'src/assets/img/404.png';
 import fullLogo from 'src/assets/img/logofull.png';
 import sadCat from 'src/assets/img/sadCat.png';
 import errorLoading from 'src/assets/img/errorLoading.gif';
@@ -18,6 +19,7 @@ const Media = {
   logo,
   noUser,
   cuteCat,
+  notFound,
 };
 
 export default Media;

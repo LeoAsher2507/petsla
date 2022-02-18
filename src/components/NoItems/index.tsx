@@ -1,12 +1,12 @@
 import React from 'react';
 import Media from 'src/utils/Media';
-import './NoProduct.scss';
+import './NoItems.scss';
 
-interface INoProductProps {
+interface INoItemsProps {
   message?: string;
 }
 
-const NoProduct = ({ message }: INoProductProps) => {
+const NoItems = ({ message }: INoItemsProps) => {
   return (
     <div className='no-products'>
       <img className='no-products-img' srcSet={Media.sadCat} alt='' />
@@ -17,4 +17,4 @@ const NoProduct = ({ message }: INoProductProps) => {
   );
 };
 
-export default NoProduct;
+export default NoItems;

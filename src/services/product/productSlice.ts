@@ -1,4 +1,3 @@
-import { setLocalStorage } from './../../utils/localStorage';
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import {
@@ -8,6 +7,7 @@ import {
 import { ERequestStatus } from 'src/types/commonType';
 import { ICartProduct, IProduct } from 'src/types/productTypes';
 import { getLocalStorage } from 'src/utils/localStorage';
+import { setLocalStorage } from './../../utils/localStorage';
 
 interface IInitialState {
   productList: IProduct[];

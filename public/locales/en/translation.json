@@ -47,6 +47,7 @@
     "warning": {
       "loginFirst": "You have to login first!",
       "noProduct": "There's no item!",
+      "noOrder": "You haven't placed any orders yet!",
       "noProductInCart": "There's no item in cart!"
     },
     "success": {

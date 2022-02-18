@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useOutletContext } from 'react-router-dom';
 import CustomPagination from 'src/components/customComponents/CustomPagination';
 import Loading from 'src/components/Loading';
+import NoItems from 'src/components/NoItems';
+
 import AccountPageHeader from 'src/pages/accountPage/components/AccountPageHeader';
 import OrderItem from 'src/pages/accountPage/components/OrderItem';
 import { getAllOrderMethod } from 'src/services/user/userAction';
@@ -20,8 +23,8 @@ const OrdersPages = () => {
   }>();
 
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { userState } = useAppSelector((state: RootState) => state);
-
   const { requestStatus, orders } = userState;
 
   React.useEffect(() => {
@@ -56,7 +59,7 @@ const OrdersPages = () => {
 
         <div className='orders-list'>
           {currentOrders.length <= 0 ? (
-            <p>There is no order!</p>
+            <NoItems message={t('message.warning.noOrder')} />
           ) : (
             currentOrders.map((order: IOrder, index) => (
               <OrderItem key={order.id} order={order} index={index} />

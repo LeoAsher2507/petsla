@@ -2,7 +2,12 @@ import moment from 'moment';
 import React from 'react';
 import { Badge, Card, Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link, useOutletContext, useParams } from 'react-router-dom';
+import {
+  Link,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from 'react-router-dom';
 import Loading from 'src/components/Loading';
 import AccountPageHeader from 'src/pages/accountPage/components/AccountPageHeader';
 import {
@@ -36,6 +41,7 @@ const DetailOrderPage = () => {
   const { style } = themeState;
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const handleBuyAgainClick = () => {
     if (currentOrder) {
@@ -56,8 +62,10 @@ const DetailOrderPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getOneOrderMethod(Number(id)));
-  }, [id, dispatch]);
+    if (!Number(id)) {
+      navigate(ERouterPath.NOT_FOUND);
+    } else dispatch(getOneOrderMethod(Number(id)));
+  }, [id, dispatch, navigate]);
 
   return (
     <div className='detail-order-page'>

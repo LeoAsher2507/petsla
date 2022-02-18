@@ -18,7 +18,7 @@ export interface ITheme {
 
 const _theme = {
   lightTheme: {
-    backgroundColor: '#fefefe',
+    backgroundColor: '#fff',
     backgroundColor1: '#F6F9FC',
     color: 'black',
     colorBlur: '#444',

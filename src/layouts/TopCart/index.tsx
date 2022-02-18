@@ -3,7 +3,7 @@ import { Button, Offcanvas } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import NoProduct from 'src/components/NoProduct';
+import NoItems from 'src/components/NoItems';
 import TopCartItem from 'src/components/TopCartItem';
 import {
   handleMinus,
@@ -79,7 +79,7 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
 
       <Offcanvas.Body style={{ padding: 0 }}>
         {cartList.length === 0 ? (
-          <NoProduct message={t('message.warning.noProductInCart')} />
+          <NoItems message={t('message.warning.noProductInCart')} />
         ) : (
           cartList.map((product) => (
             <TopCartItem
@@ -95,10 +95,14 @@ const TopCart = ({ showCart, handleCloseTopCart }: ITopCartProps) => {
       </Offcanvas.Body>
 
       <div className='top-cart-footer'>
-        <Button className='top-cart-btn custom-btn' onClick={handleCheckoutClick}>
+        <Button
+          className='top-cart-btn custom-btn'
+          onClick={handleCheckoutClick}>
           {`${t('title.checkout')} (${totalInCart.price.toLocaleString()}đ)`}
         </Button>
-        <Button className='top-cart-btn custom-btn bg-fill' onClick={handleViewCartClick}>
+        <Button
+          className='top-cart-btn custom-btn bg-fill'
+          onClick={handleViewCartClick}>
           {`${t('title.view')} ${t('title.cart')}`}
         </Button>
       </div>

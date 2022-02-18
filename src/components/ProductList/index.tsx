@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import NoProduct from 'src/components/NoProduct';
+import NoItems from 'src/components/NoItems';
+
 import ProductItem from 'src/components/ProductItem';
 import { IProduct } from 'src/types/productTypes';
 import './ProductList.scss';
@@ -13,7 +14,7 @@ const ProductList = ({ productList }: IProductListProps) => {
   return (
     <div className='product-list '>
       {productList.length === 0 ? (
-        <NoProduct />
+        <NoItems />
       ) : (
         <Row className='px-2'>
           {productList.map((product: IProduct) => (
